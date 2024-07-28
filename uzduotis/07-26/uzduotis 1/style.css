@@ -1,0 +1,41 @@
+* {
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif ;
+}
+.flex-container {
+    height: 500px;
+    width: 500px;
+    background-color: #bbada0;
+    margin: 150px auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    padding: 10px 0;
+
+}
+.small-box{
+    background-color: #cdc1b4;
+    height: 106.25px;
+    width: 106.25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 55px;
+    font-weight: bold;
+}
+.numbers-color {
+    color: #776e65;
+}
+.n2 {
+    background-color: #eee4da;
+}
+.n4 {
+    background-color: #ede0c8
+}
+.n8 {
+    background-color: #f2b179;
+}
+.n16 {
+    background-color: #f59563;
+}

@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+* {
+    background-color: #192123;
+    margin: 0;
+    padding: 0;
+}
+.flex-container {
+    width: 800px;
+    height: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 150px auto 0px;
+}
+.box {
+    height: 200px;
+    width: 200px;
+    background-color:#4b5659;
+    display: flex;
+    align-items: flex-end;
+    padding-left: 20px;
+    font-size: 50px;
+    line-height: 40px;
+    color: #192123;
+    font-weight: bold;
+    font-family: "Oswald", sans-serif;
+
+}
+.indicator {
+    width: 800px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px auto 0px;
+    gap: 20px;   
+}
+.dot {
+    margin-top: 30px;
+    height: 15px;
+    width: 15px;
+    display: flex;
+    background-color: #95a5a6;
+}
+.box:nth-child(1) {
+    background-color: #b4e900;
+}
+.dot:nth-child(1) {
+    background-color: #b4e900;
+}
