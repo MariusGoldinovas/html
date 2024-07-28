@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.tevutevas {
+    width: 500px;
+    height: 400px;
+    border: 1px solid red;
+}
+.tevas {
+    background-color: aqua;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 100%;
+    /* margin-top: -20px; */
+   }
+.vaikai {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+.menu {
+    background-color: chocolate;
+    height: 20px;
+}
+.vaikas1 {
+    background-color: blue;
+
+}
+.vaikas2 {
+    background-color: brown;
+}
+.vaikas3 {
+    background-color: blueviolet;
+}
