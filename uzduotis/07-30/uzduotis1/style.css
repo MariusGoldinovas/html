@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console",
+    "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+    "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier,
+    monospace;
+    background-color: orange;
+}
+.container {
+    background-color: black;
+    color: white;
+    padding: 50px 25px;
+}
+.el-2, .el-3, .el-4, .el-5 {
+    padding-left: 30px;
+}

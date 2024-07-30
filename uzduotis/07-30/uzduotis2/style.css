@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+}
+body {
+    height: 100vh;
+    background: black url(img/bg.jpg) no-repeat center center / cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Lato", sans-serif;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    height: 300px;
+}
+.logo {
+    background-color: black;
+    padding: 10px;
+}
+.social {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-right: 30px;
+    margin-top: 80px;
+}
+.social-links {
+    display: flex;
+    border: 1px solid;
+    padding: 10px;
+}
+.text {
+    background-color: white;
+    padding: 20px 0 0 20px;
+}
+.firs-letter-contatcs {
+    font-weight: bold;
+}
+.website {
+    text-decoration: none;
+    color: black;
+}
+.line {
+    padding-bottom: 10px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    width: fit-content;
+}
+.underline {
+    padding-top: 10px;
+}
