@@ -1,0 +1,95 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+html {
+    scroll-behavior: smooth;
+}
+ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+a {
+    text-decoration: none;
+    font-size: large;
+    color: black;
+}
+section {
+    width: 100%;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: aqua;
+    color: antiquewhite;
+    font-size: 20px;
+}
+#home {
+    background-image: url(img/backgroud-image/home.jpg);
+}
+#about {
+    background-image: url(img/backgroud-image/about.jpeg);
+}
+#history {
+    background-image: url(img/backgroud-image/history.jpg);
+}
+#career {
+    background-image: url(img/backgroud-image/Career.jpg);
+}
+#items {
+    background-image: url(img/backgroud-image/items.jpg);
+}
+#cats {
+    background-image: url(img/backgroud-image/cat.jpg);
+}
+#dogs {
+    background-image: url(img/backgroud-image/dog.jpg);
+}
+#contacts {
+    background-image: url(img/backgroud-image/contats.jpg);
+}
+#home img, #history img, #items img, #dogs img {
+    width: 400px;
+    height: 400px;
+    margin: 100px 0 0 200px;
+    float: left;
+    border-radius: 10px;
+}
+#about img, #career img, #cats img, #contacts img {
+    width: 400px;
+    height: 400px;
+    margin: 100px 200px 0 0;
+    float: right;
+    border-radius: 10px;
+}
+#home p, #history p, #items p, #dogs p {
+    width: 400px;
+    float: right;
+    margin-right: 150px;
+    margin: 100px 200px 0 0px;
+}
+#about p, #career p, #cats p, #contacts p {
+    width: 400px;
+    float: left;
+    margin-left: 150px;
+    margin: 100px 0 0 200px;
+    
+}
+h1 {
+    padding: 15px;
+    color: rgb(4, 4, 4);
+}
+#home h1 {
+    color: rgb(252, 252, 252);
+}
+p {
+    color: rgb(162, 14, 14);
+    font-weight: 600;
+    font-size: 18px;
+    text-align: justify;
+}
