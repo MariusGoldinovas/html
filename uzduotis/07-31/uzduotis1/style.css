@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: "Poppins", sans-serif;
+    background-color: #fa4299;
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+    
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+.login-form {
+    width: 300px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+}
+h2 {
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    padding-bottom: 20px;
+}
+.login {
+    display: flex;
+    justify-content: center;
+}
+.button-side {
+    width: 150px;
+    padding: 10px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    border: 0.5px solid rgba(128, 128, 128, 0.76);
+    font-size: 18px;
+}
+div .login .login-border-right{
+    border-right: 0;
+    background-color: #fa4299;
+    color: #fff;
+}
+input[type="email"], input[type="password"] {
+    font-size: 17px;
+    padding: 5px;
+    border: 0.5px solid rgba(128, 128, 128, 0.76);
+}
+input[type="email"] {
+    margin-bottom: 15px;
+}
+.forgot {
+    font-size: 14px;
+    color: #fa4299;
+    padding-top: 1px;
+}
+.login-big {
+    background-color: #fa4299;
+    border: 0;
+    padding: 15px;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 2px;
+    margin-top: 20px;
+}
+.last-line {
+    font-size: 14px;
+    padding: 15px;
+}
+span a {
+    color: #fa4299;
+}
+.login-border-right a, .login-big a {
+    color: #fff;
+}
