@@ -20,6 +20,9 @@ h3 {
 h1 {
   padding: 20px 0 20px 0;
 }
+img {
+  position: relative;
+}
 p {
   color: #b3b3b3;
   line-height: 35px;
@@ -32,7 +35,7 @@ p {
   background-color: white;
   padding: 65px 80px;
   top: 20px;
-  right: 260px;
+  right: 3%;
 }
 .logo {
   position: absolute;
@@ -44,7 +47,7 @@ p {
   height: 40px;
   background-color: #47ea4e;
   top: 600px;
-  right: 550px;
+  right: 320px;
   padding: 25px 50px;
 }
 svg {

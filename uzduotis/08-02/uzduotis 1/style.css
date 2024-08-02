@@ -9,7 +9,7 @@ img {
     display: block;
 }
 .container {
-    height: 1230px;
+    height: 100vh;
     display: flex;
     justify-content: center;
     gap: 20px;
