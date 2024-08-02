@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Open Sans", sans-serif;
+    background-color: #e3f2fd;
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+}
+.container {
+    width: 600px;
+    background-color: white;
+    padding: 20px;
+}
+p {
+    font-size: 14px;
+    font-weight: bold;
+    width: 50%;
+}
+.alone {
+    width: 10px;
+    padding: 0 15px;
+    text-align: center;
+}
+.number-text {
+    margin-bottom: 10px;
+}
+span {
+    font-weight: normal;
+    font-size: 10px;
+    color: #c3c6c6;
+}
+.logo-number {
+    display: flex;  
+    background-color: #fafafa;
+    width: 100%; 
+    font-size: 14px;
+    border: 1px solid #f0f0f0;
+    padding: 8px 10px;
+}
+#number {
+    background-color: #fafafa;
+    font-size: 12px;
+}
+input {
+    border: none;
+    width: 100%;
+    font-size: 14px;
+    outline: none;
+}
+[type="text"] {
+    font-size: 10px;
+    font-weight: 600;
+    color: #fafafa;
+}
+#yy, #mm, #card-name {
+    text-align: center;
+}
+.input {
+    border: 1px solid #f0f0f0;
+    padding: 8px 10px;
+    width: 45%;
+    display: flex;
+}
+.mm-yy {
+    width: 45%;
+    display: flex;
+}
+.expirary-date, .cvc, .name, .mm-yy {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    align-items: center;
+}
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background-color: #2962ff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 40px;
+    font-weight: bold;
+}
+img {
+    padding-right: 10px;
+}
+.mm, .yy {
+    border: 1px solid  #f0f0f0;
+    padding: 8px 10px;
+}
