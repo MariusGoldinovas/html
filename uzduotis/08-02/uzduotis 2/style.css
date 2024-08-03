@@ -8,6 +8,7 @@ body {
 }
 .container {
   position: relative;
+  width: 1100px;
   display: flex;
   justify-content: center;
   margin: 100px auto;
@@ -20,22 +21,19 @@ h3 {
 h1 {
   padding: 20px 0 20px 0;
 }
-.nuotrauka {
-  position: absolute;
-}
 p {
   color: #b3b3b3;
   line-height: 35px;
-  padding: 0 50px 0 0;
+  /* padding: 0 50px 0 0; */
 }
 .text {
   position: absolute;
   width: 380px;
-  height: 500px;
+  height: 490px;
   background-color: white;
   padding: 65px 80px;
   top: 20px;
-  right: 280px;
+  right: -150px;
 }
 .logo {
   position: absolute;
@@ -46,8 +44,8 @@ p {
   width: 200px;
   height: 40px;
   background-color: #47ea4e;
-  top: 600px;
-  right: 650px;
+  bottom: 20px;
+  right: 200px;
   padding: 25px 50px;
 }
 svg {
