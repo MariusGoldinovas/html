@@ -15,6 +15,16 @@ body {
     background-color: white;
     padding: 20px;
 }
+.card-number {
+    position: relative;
+}
+.edit {
+    position: absolute;
+    color: #2962ff;
+    top: 0;
+    right: 0;
+    font-size: 14px;
+}
 p {
     font-size: 14px;
     font-weight: bold;

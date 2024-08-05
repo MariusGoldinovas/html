@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+@import url(https://db.onlinewebfonts.com/c/7a93605feca08624ef91d7a211851869?family=cassadio);
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Questrial", sans-serif;
+}
+.container {
+    width: 100%;
+    display: flex;
+}
+.left {
+    width: 50%;
+    height: 100vh;
+    background-image: url(img/back.jpg);
+}
+.right {
+    width: 50%;
+    height: 100vh;
+    background-color: #FFF;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+img.bottom-left {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+img.top-right {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.logo {
+    width: 123px;
+    height: 62.299px;
+    font-family: "cassadio";
+    color: #FFFDFD;
+    font-size: 41.532px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 23px 552px 0 45px;
+}
+.login-media {
+    margin-top: 290px;
+}
+a {
+    color: #707070;
+    font-family: "Questrial", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    text-decoration: none;
+}
+.login-media div {
+    width: 384px;
+    height: 34px;
+    border-radius: 15px;
+    border: 1px #CCC;
+    background: #FFFDFD;
+    margin: 35px auto;
+    color: #03A9F4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-media div i {
+    padding-right: 17px;
+}
+h1 {
+    color: #4F4F4F;
+    font-size: 45px;
+    font-weight: 900;
+    letter-spacing: 6.75px;
+    margin-top: 243px;
+    margin-bottom: 20px;
+}
+h2 {
+    color: rgba(79, 79, 79, 0.80);
+    font-size: 25px;
+    font-weight: 400;
+    margin-bottom: 42px;
+}
+.login-email {
+    display: flex;
+    flex-direction: column;
+}
+label {
+    color: #4F4F4F;
+    font-size: 14px;
+    font-weight: 400;
+}
+.login-email input {
+    width: 385px;
+    height: 30px;
+    border-radius: 2px;
+    border: 1px solid #CACACA;
+    box-shadow: 2px 4px 6px 0px rgba(79, 79, 79, 0.15);
+}
+#email {
+    margin-bottom: 53px;
+}
+#password {
+    margin-bottom: 31px;
+}
+.check-box {
+    width: 385px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    color: #4F4F4F;
+    font-size: 12px;
+    font-weight: 400;
+}
+button {
+    width: 384px;
+    height: 34px;
+    border-radius: 15px;
+    border: 1px solid #CCC;
+    background: #03A9F4;
+    box-shadow: 2px 4px 6px 0px rgba(79, 79, 79, 0.15);
+    margin-top: 45px;
+}

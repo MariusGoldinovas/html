@@ -1,41 +1,44 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 .tevutevas {
     width: 500px;
-    height: 400px;
     border: 1px solid red;
+    margin: 50px auto;
 }
 .tevas {
     background-color: aqua;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    height: 100%;
-    /* margin-top: -20px; */
+    height: 400px;
+    position: relative;
    }
 .vaikai {
     height: 100px;
     width: 100px;
-    display: flex;
-    box-sizing: border-box;
-    justify-content: center;
-    align-items: center;
 }
 .menu {
     background-color: chocolate;
     height: 20px;
 }
+/* .vaikai:nth-child(1) {
+    background-color: orange;
+} */
 .vaikas1 {
-    background-color: blue;
-
+    position: absolute;
+    background-color: green;
+    top: 0;
+    left: 0;
 }
 .vaikas2 {
     background-color: brown;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 .vaikas3 {
     background-color: blueviolet;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
