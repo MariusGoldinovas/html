@@ -9,22 +9,22 @@ body {
     background-image: url("img/1.png");
 }
 .container {
-    width: 1440px;
+    max-width: 1440px;
     height: 850px;
     border-radius: 50px;
     background-color: #ffff;
     position: relative;
-    margin: 0 auto;
+    margin: 50px auto;
+    display: flex;
 }
 .left {
-    width: 545px;
-    margin: 180px auto auto 95px;
+    /* width: 545px; */
+    margin: 50px auto auto 95px;
 }
 h1 {
-    padding-top:  60px;
+    /* padding-top:  60px; */
     color: #6DE1C2;
     font-size: 46px;
-    font-style: normal;
     font-weight: 600;
     line-height: 24px;
     letter-spacing: 0.46px;
@@ -32,7 +32,6 @@ h1 {
 span{
     color: #000;
     font-size: 46px;
-    font-style: normal;
     font-weight: 600;
     line-height: 24px; 
     letter-spacing: 0.46px;
@@ -43,7 +42,6 @@ p.text {
     margin-top: 23px;
     color: #000;
     font-size: 14px;
-    font-style: normal;
     font-weight: 400;
     line-height: 24px; 
     letter-spacing: 0.14px;
@@ -57,8 +55,6 @@ p.text {
     height: 36.8px;
     color: #8E8E8E;
     font-family: "Inter", sans-serif;
-    font-size: 16px;
-    font-style: normal;
     font-weight: 400;
     line-height: 160%; 
     letter-spacing: 0.5px;
@@ -98,7 +94,6 @@ small {
     color: #8E8E8E;
     font-family: "Inter", sans-serif;
     font-size: 13px;
-    font-style: normal;
     font-weight: 400;
     line-height: 160%; 
     letter-spacing: 0.5px;
@@ -116,7 +111,6 @@ small {
     color: #383C3E;
     font-family: "Inter", sans-serif;
     font-size: 14px;
-    font-style: normal;
     font-weight: 400;
     line-height: 160%;
     letter-spacing: 0.5px;
@@ -125,7 +119,6 @@ small {
     color: #8E8E8E;
     font-family: "Inter", sans-serif;
     font-size: 14px;
-    font-style: normal;
     font-weight: 400;
     line-height: 160%; 
     letter-spacing: 0.5px;
@@ -135,9 +128,8 @@ button {
     padding: 16px 0px;
     font-family: "Inter", sans-serif;
     font-size: 14px;
-    font-style: normal;
     font-weight: 700;
-    line-height: 160%; /* 22.4px */
+    line-height: 160%;
     letter-spacing: 0.5px;
     border-radius: 10px;
     background: #0982FE;
@@ -146,7 +138,7 @@ button {
 }
 .contacts {
     display: flex;
-    width: 698px;
+    max-width: 698px;
     height: 40px;
     align-items: flex-start;
     gap: 50px;
@@ -159,7 +151,6 @@ button {
 .p-contacts, a {
     color: #DD5471;
     font-size: 13px;
-    font-style: normal;
     font-weight: 400;
     line-height: 20px;
     letter-spacing: 0.26px;
@@ -201,3 +192,4 @@ img.map {
 p.navi {
     font-size: 13px;
 }
+
