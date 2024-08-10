@@ -8,12 +8,11 @@ body {
     background-color: #edeef1;
 }
 .container {
-
+    width: 100%;
 }
 .row {
     width: 100%;
-    display: flex;
-    flex-direction: row;
+    display:flex;
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
@@ -22,17 +21,16 @@ body {
 .box,
 .box-medium,
 .box-big {
-    width: 328px;
+    min-width: 296px;
     background: #D8DBDF;
     background-color: white;
     border-radius: 8px;
+    padding: 16px;
 }
-
 img:not(.icon-star, .drop) {
-    width: 296px;
+    width: 100%;
     background: rgba(211, 211, 211, 0.568);
     border-radius: 8px;
-    margin: 16px 16px;
 }
 h1 {
     text-transform: uppercase;
@@ -44,9 +42,8 @@ h1 {
 /* Medium */
  .price-tag {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    padding: 0px 16px 16px 16px;
+    align-items: center;
  }
  .price {
     font-size: 18px;
@@ -54,6 +51,8 @@ h1 {
  }
 .des {
     font-weight: 400;
+    line-height: 19px;
+    margin-top: 8px;
 }
 /* Big */
 .rating img {
@@ -63,20 +62,15 @@ h1 {
 }
 .rating {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0 16px;
 }
-.des{
-    line-height: 19px;
-    padding-left: 16px;
-    margin-top: 8px;
+.price-tag {
+
 }
 .male {
     line-height: 14px;
     font-size: 12px;
-    padding-left: 16px;
     margin-top: 10px;
 }
 .buy {
@@ -84,7 +78,6 @@ h1 {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16px;
     margin-top: 10px;
     margin-bottom: 16px;
 }
@@ -102,36 +95,10 @@ button {
 }
 
 /* Media  */
-@media only screen and (min-width: 768px) {
-.box-medium:nth-child(5) {
-    /* width: 676px; */
-
-    }
-img.big-box {
-    /* width: -webkit-fill-available; */
-}
-}
-
-@media only screen and (min-width: 1920px) {
-    .box {
-        min-width: 292px;
-    }
-    .box img {
-        max-width: 260px;
-    }
-    .box-medium {
-        min-width: 354px;
-    }
-    .box-medium img {
-        max-width: 322px;
-    }
+@media screen and (width: 768px) {
+    .box,
+    .box-medium,
     .box-big {
-        min-width: 447px;
+        max-width: calc(50%-10px)
     }
-    .box-big img {
-        max-width: 415px;
-    }
-.medium .row {
-    flex-wrap: nowrap;
-}
 }
