@@ -11,9 +11,10 @@
     z-index: 3;
     margin: 0;
     list-style: none;
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: left;
+    visibility: hidden;
   
 }
 .menu nav {
@@ -28,6 +29,7 @@
     font-weight: 400;
     line-height: 28.5px;
     letter-spacing: -1.04px;
+    transition: transform 1s ease-out;
 }
 header hr {
     margin: 38px 0;
@@ -38,7 +40,8 @@ header hr {
     margin-bottom: 19px;
 }
 .hamburger-menu:has(input:checked) + .menu {
-    display:flex;
+    /* display:flex;    */
+    visibility: visible;
 }
 
 .menu .close img {
@@ -52,7 +55,6 @@ header hr {
 .social {
     font-family: Poppins;
     font-size: 13px;
-    font-style: normal;
     font-weight: 400;
     line-height: 18.2px;
     letter-spacing: 1.3px;
@@ -69,13 +71,15 @@ header hr {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    background-color: white;
+    background-color: var(--color-white);
     margin-top: 40px;
-    width: calc(50% - 10px)
+    width: calc(50% - 10px);
+    cursor: pointer;
 }
 nav a:hover {
     transform: translateX(-15px);
 }
 body:has(#check:checked) .overlay {
-    display: block;   
+    /* display: block;    */
+    visibility: visible;
 }
