@@ -148,10 +148,10 @@ let price = 1;
 let discount3 = 3/100
 let discount4 = 4/100
 
-if (quantity >= 1000 & quantity < 2000) {
+if (quantity > 1000 & quantity < 2000) {
     console.log(`Perkant ${quantity} žvakių taikoma 3% nuolaida, mokėtina suma be nuolaidos yra ${(quantity*price)}e, nuolaida ${(quantity*discount3)}e pritaikius nuolaidą ${(quantity*price)-(quantity*discount3)}e`);
     
-} else if (quantity>= 2000) {
+} else if (quantity > 2000) {
     console.log(`Perkant ${quantity} žvakių taikoma 4% nuolaida, mokėtina suma be nuolaidos yra ${(quantity*price)}e, nuolaida ${(quantity*discount4)}e pritaikius nuolaidą ${(quantity*price)-(quantity*discount4)}e`);
 
 } else {
