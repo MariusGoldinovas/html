@@ -16,6 +16,7 @@ for(let i = 1; i <= 400; i++) {
     }
 }
 document.write('<h1>Antra užduotis</h1>');
+<h1></h1>
 // Sugeneruokite 300 atsitiktinių skaičių nuo 0 iki 300, atspausdinkite juos atskirtus tarpais ir suskaičiuokite kiek tarp jų yra didesnių už 150.  Skaičiai didesni nei 275 turi būti raudonos spalvos.
 
 let a2 = 0;
@@ -30,7 +31,7 @@ while(a2 < 300){
     }
     if(numbers > 275){
         red++
-        document.write(`<font color="red"> ${numbers} </font>`);
+        document.write(`<span style="color:red; "> ${numbers} </span>`);
     } else {
         document.write(numbers + " ");
     }
@@ -38,6 +39,7 @@ while(a2 < 300){
 }
 document.write(`<br>Didesnių nei 150 skaičių yra ${counter} vnt`);
 document.write(`<br>Didesnių nei 275 skaičių yra ${red} vnt`)
+
 
 document.write('<h1>Trečia užduotis</h1>');
 
@@ -47,8 +49,8 @@ let beLiekanos = 0;
 let a3 = 0;
 let sarasas = '';
 
-for(let a3 = 1; a3 < 3000; a3++) {
-    if(a3 % 77 === 0){
+for(let i = 1; i < 3000; i++) {
+    if(i % 77 === 0){
         beLiekanos++
         sarasas += a3 + ",";
     }
@@ -83,10 +85,6 @@ for(let y = 0; y < size; y++) {
     }
     document.write('<br>');
 }
-
-
-
-
 
 document.write('<h1>Penkta užduotis</h1>');
 // Prieš tai nupieštam kvadratui nupieškite raudonas istrižaines.
@@ -169,7 +167,9 @@ while(true) {
     } else if (KazysTotalPoints >= 222 && KazysTotalPoints > PetrasTotalPoints) {
         document.write(`<strong>Kazys laimi žaidimą su ${KazysTotalPoints} taškais!</strong>`);
         break;
-    }   
+    } else {
+        document.write(`Laimi draugystė<br>`)
+    }
 }
 
 document.write('<h1>Aštunta užduotis</h1>');
@@ -211,17 +211,17 @@ for(let i = 1; i <= 5; i++){
     let dabartinisIlgis = vieniesIlgis
 
     while(true){
-        let smugis = random(5, 20);
+        let smugis = random(20, 30);
         let onTarget = random(0, 1);
         if(onTarget === 1){
             dabartinisIlgis -= smugis;
             mazasSmugis++;
-            document.write(` ${mazasSmugis} smūgis sukala ${smugis} mm,<br> `)
+            document.write(` ${didelisSmugis} smūgis sukala ${smugis} mm,<br> `)
 
             total += smugis
 
             if (dabartinisIlgis <= 0) {
-                document.write(`<strong>Iš viso ${mazasSmugis} smūgių, ${total} mm</strong><br>`)
+                document.write(`<strong>Iš viso ${didelisSmugis} smūgių, ${total} mm</strong><br>`)
                 mazasSmugis = 0;
                 total = 0;
                 break;
