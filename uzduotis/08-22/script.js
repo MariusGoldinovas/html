@@ -15,7 +15,7 @@ document.write(`<h3> Antra užduotis</h3>`)
 // Atspausdinkite kiekvieną pirmo uždavinio augalą atskiroje eilutėje.
 
 for(let i = 0; i < augalai.length; i++){
-    document.write(` Nr.${i} - ${augalai[i]}<br>`)
+    document.write(` ${i} - ${augalai[i]}<br>`)
 }
 
 document.write(`<h3> Trečia užduotis</h3>`)
@@ -136,15 +136,16 @@ for ( let i = 0; i < atsitiktinisMasyvas.length; i++){
 }
 document.write(`Poriniai: ${poriniai} <br> Neporiniai: ${neporiniai}`)
 
-// document.write(`<h3> Antra užduotis g. </h3>`)
+document.write(`<h3> Antra užduotis g. </h3>`)
 // // Pirminio masyvo elementus su poriniais indeksais padarykite lygius 0 jeigu jie didesni už 15;
 
+
 for ( let i = 0; i < atsitiktinisMasyvas.length; i++){
-    if(atsitiktinisMasyvas[i] % 2 === 0 && atsitiktinisMasyvas[i] >15 ){
-        atsitiktinisMasyvas[i] = 0
+    if(atsitiktinisMasyvas.indexOf(atsitiktinisMasyvas[i]) % 2 == 0 && atsitiktinisMasyvas[i] > 15 ){
+        atsitiktinisMasyvas[i] = 0;
     }
 }
-document.write(`Poriniai: ${atsitiktinisMasyvas}`)
+document.write(`Poriniai ir didesni nei 15: ${atsitiktinisMasyvas}`)
 
 document.write(`<h3> Antra užduotis h. </h3>`)
 // Suraskite pirmą indeksą, kurio elemento reikšmė didesnė už 10;
@@ -161,9 +162,9 @@ document.write(`<h3> Antra užduotis i. </h3>`)
 const bePoriniuMasyvas = [];
 
 for ( let i = 0; i < atsitiktinisMasyvas.length; i++){
-    if(atsitiktinisMasyvas.indexOf(atsitiktinisMasyvas[i])% 2 !== 0){
+    if(atsitiktinisMasyvas.indexOf(atsitiktinisMasyvas[i])% 2 === 0){
         bePoriniuMasyvas.push(atsitiktinisMasyvas[i])  
 }
 }
-document.write(`: ${bePoriniuMasyvas}`)
+document.write(`Be porinių indeksų: ${bePoriniuMasyvas}`)
 
