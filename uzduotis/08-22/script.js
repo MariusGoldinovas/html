@@ -32,13 +32,13 @@ let ilgesniNei7 = 0;
 
 for(let i = 0; i < augalai.length; i++)
     if(augalai[i].length < 5) {
-        trumpesniNei5++
+        trumpesniNei5++;
     }
     document.write(`Trumpesni nei 5 simboliai yra ${trumpesniNei5} <br>`);
 
 for(let i = 0; i < augalai.length; i++)
     if(augalai[i].length > 7) {
-        ilgesniNei7++
+        ilgesniNei7++;
     }
     document.write(`Ilgesni nei 7 simboliai yra ${ilgesniNei7}<br>`);
 
@@ -115,9 +115,7 @@ document.write(`<h3> Antra užduotis e. </h3>`)
 // Papildykite masyvą papildomais 10 elementų su reikšmėmis nuo 5 iki 25, kad bendras masyvas padidėtų iki indekso 39;
 
 for(let i = 1; i < 10; i++){
-    newNUmbers = random(5,25)
-    atsitiktinisMasyvas.push(newNUmbers)
-
+    atsitiktinisMasyvas.push(random(5,25))
 }
 document.write(`Papildymas: ${atsitiktinisMasyvas} <br>Ilgis: ${atsitiktinisMasyvas.length}`)
 
@@ -128,7 +126,7 @@ const poriniai = [];
 const neporiniai = [];
 
 for ( let i = 0; i < atsitiktinisMasyvas.length; i++){
-    if(atsitiktinisMasyvas.indexOf(atsitiktinisMasyvas[i])% 2 === 0){
+    if(i % 2 === 0){
         poriniai.push(atsitiktinisMasyvas[i])
     }else {
         neporiniai.push(atsitiktinisMasyvas[i])
@@ -141,7 +139,7 @@ document.write(`<h3> Antra užduotis g. </h3>`)
 
 
 for ( let i = 0; i < atsitiktinisMasyvas.length; i++){
-    if(atsitiktinisMasyvas.indexOf(atsitiktinisMasyvas[i]) % 2 == 0 && atsitiktinisMasyvas[i] > 15 ){
+    if(i % 2 == 0 && atsitiktinisMasyvas[i] > 15 ){
         atsitiktinisMasyvas[i] = 0;
     }
 }
@@ -151,7 +149,7 @@ document.write(`<h3> Antra užduotis h. </h3>`)
 // Suraskite pirmą indeksą, kurio elemento reikšmė didesnė už 10;
 for ( let i = 0; i < atsitiktinisMasyvas.length; i++){
     if(atsitiktinisMasyvas[i] > 10 ){      
-        document.write(`Daugiau už 10 yra ${atsitiktinisMasyvas[i]}, jo indeksas: ${atsitiktinisMasyvas.indexOf(atsitiktinisMasyvas[i])}`)
+        document.write(`Daugiau už 10 pirmas skaičius yra ${atsitiktinisMasyvas[i]} , jo indeksas: ${atsitiktinisMasyvas.indexOf(atsitiktinisMasyvas[i])}`)
         break;
     }
 }

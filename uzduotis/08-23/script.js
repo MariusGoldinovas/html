@@ -17,7 +17,7 @@ document.write(`<strong><br>Suskaičiuokite kiek masyve yra reikšmių didesnių
 
 let masyvasDaugiau10 = 0;
 
-for(let i = 0; i <masyvas.length; i++){
+for(let i = 0; i < masyvas.length; i++){
     if(masyvas[i]>10) {
         masyvasDaugiau10++
     }
@@ -26,19 +26,19 @@ document.write(`${masyvasDaugiau10} <br>`)
 
 document.write(`<strong><br>Raskite didžiausią masyvo reikšmę ir jos indeksą arba indeksus jeigu yra keli;<br><br></strong>`)
 
-let maxReiksme = Math.max(...masyvas);
+let maxValue = Math.max(...masyvas);
 
 const maxIndex = [];
 masyvas.forEach((value, index) => {
-    if (value === maxReiksme) {
+    if (value === maxValue) {
         maxIndex.push(index);
     }
 });
 
 if (maxIndex.length === 1) {
-document.write(`max reikšmė: ${maxReiksme}, vieta indekse: ${maxIndex[0]}<br>`) 
+document.write(`max reikšmė: ${maxValue}, vieta indekse: ${maxIndex[0]}<br>`) 
 } else {
-    document.write(`max reikšmė: ${maxReiksme}, vieta indekse: ${maxIndex}<br>`)
+    document.write(`max reikšmė: ${maxValue}, vieta indekse: ${maxIndex}<br>`)
 }
 
 document.write(`<strong><br>Suskaičiuokite visų porinių (lyginių) indeksų reikšmių sumą;<br><br></strong>`)
