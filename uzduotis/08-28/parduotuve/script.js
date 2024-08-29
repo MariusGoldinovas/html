@@ -138,8 +138,8 @@ function nuolaida(preke) {
 function spalvotosStars(rating) {
     const maxStars = 5;
     let starHTML = '';
-    const fullStars = Math.floor(rating);  // Number of full stars
-    const hasHalfStar = rating % 1 !== 0;  // Check if there's a half star
+    const fullStars = Math.floor(rating);  
+    const hasHalfStar = rating % 1 !== 0; 
 
     for (let i = 1; i <= maxStars; i++) {
         if (i <= fullStars) {
