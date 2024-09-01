@@ -7,22 +7,26 @@ body{
 .main{
     position: absolute;
     z-index: 1;
-    /* display: none; */
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* display: none; */
 }
 .cart-container {
     display: flex;
-    border: 1px solid;
     width: 50%;
     gap: 1rem;
     justify-content: center;
+    align-items: center;
+    padding-top: 1rem;
 }
 .icon-cart {
     display: flex;
     align-items: center;
     gap: 2rem;
+}
+.cart-container .material-symbols-outlined {
+    cursor: pointer;
 }
 img {
     width: 150px;

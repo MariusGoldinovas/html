@@ -2,9 +2,12 @@
 .buy-cart {
     display: flex;
     margin: 3rem auto; 
-    padding-top: 2rem;
+
     width: 50%;
+    min-height: 50vh;
     display: none;
+    /* border: 1px solid; */
+    border-radius: 1rem;
 }
 .items-cart {
     width: 70%;
@@ -12,7 +15,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
 }
 .items-cart .top {
     display: flex;
@@ -28,8 +30,106 @@
 .items-cart .top .right{
     font-size: 1rem;
 }
-.items-cart .buttom {
+.items-cart .bottom {
     display: flex;
     align-items: center;
+    cursor: pointer;
+    padding-top: 4rem;
+}
+/* .items-row{
+    display: block;
+} */
+
+.buy-middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+.row-items {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.buy-middle .item {
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+.buy-middle .item-quantity{
+    display: flex;
+    justify-content: center;
+    width: 35%;
+    align-items: center;
+}
+.buy-middle .item-quantity .item-remove, .item-add {
+    cursor: pointer;
+}
+.item-delete {
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+.buy-middle .item-price-remove {
+    width: 15%;
+    display: flex;
+    padding: 0 2rem;
+    justify-content: space-between;
+    align-items: center;
+}
+.item-selected-quantity {
+    border: 1px solid;
+    padding: .5rem 2rem;
+}
+
+.summary {
+    background: rgb(186, 178, 178);
+    width: 30%;
+    padding: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    
+}
+.summary .top {
+    border-bottom: 1px solid;
+    padding-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: start;
+}
+.summary .items {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    font-size: 1.5rem;
+}
+.summary .shipping, .discount-code{
+    font-size: 1.5rem;
+    padding: 0 1rem 1rem;
+}
+.summary .discount-code form input, select{
+    background-color: rgb(186, 178, 178);
+    border: 1px solid;
+}
+.summary .discount-code{
+    border-bottom: 1px solid;
+    padding-bottom: 2rem;
+}
+.total {
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 1rem 1rem;
+}
+.buy-button {
+    background-color: black;
+    color: white;
+    padding: .75rem;
+    letter-spacing: 2px;
+    text-align: center;
+    border-radius: 1rem;
+    margin: 1rem 0;
     cursor: pointer;
 }

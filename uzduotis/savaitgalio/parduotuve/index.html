@@ -19,9 +19,9 @@
 <body>
     <div class="main">
         <div class="cart-container">
-            <div class="icon-cart">Shopping Cart </div>
-            <div class="quantity">quantity</div>
-            <span class="material-symbols-outlined">
+            <div class="icon-cart">Items in shopping Cart</div>
+            <div class="quantity">0</div>
+            <span onclick="openCart()" id="cart-btn" class="material-symbols-outlined">
                 shopping_cart</span>
             <div class="cart"></div>
         </div>
@@ -32,31 +32,42 @@
         <div class="items-cart">
             <div class="top">
                 <div class="left">Shopping cart</div>
-                <div class="right"> 3items</div>
+                <div class="right"></div>
             </div>
-            <div class="middle">prekes</div>
-            <div class="buttom"> <span class="material-symbols-outlined">
-                arrow_back</span>Back to shop</div>
+            <div class="buy-middle"></div>
+            <div onclick="closeCart()" id="back-main" class="bottom"> <span class="material-symbols-outlined">
+                    arrow_back</span>Back to shop</div>
         </div>
         <div class="summary">
             <div class="top">Summary</div>
             <div class="middle">
-                <div class="items">items 3 price</div>
-                <div class="shipping">Shipping
-                    <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
+                <div class="items">
+                    <div class="summary-total-items"></div>
+                    <div class="summary-total-items-price"></div>                    
                 </div>
-                <div class="discount-code"></div>
-            </div>
-            <div class="buttom">
-                <div class="total">TOTAL PRICE</div>
-                <div class="buy-button">BUY</div>
+                <div class="shipping">Shipping
+                    <form >
+                        <select name="delivery" id="delivery-options">
+                          <option value="5">Standart Delivery: $5</option>
+                          <option value="10">Express Delivery: $10</option>
+                          <option value="20">Super Fast Delivery: $20</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="discount-code">Discount code
+                    <form >
+                        <input type="text">
+                    </form>
+                </div>
+                <div class="bottom">
+                    <div class="total">
+                        <div class="total-price">TOTAL PRICE</div>
+                        <div class="total-delivery">200</div>
+                    </div>
+                    <div class="buy-button">BUY</div>
+                </div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>
