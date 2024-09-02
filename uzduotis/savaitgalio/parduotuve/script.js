@@ -51,42 +51,17 @@ for (const preke of prekes) {
 
 document.querySelector(".result").innerHTML = body;
 
-let cart = [];
-
-function addToCart(preke) {
-  // Check if the item is already in the cart
-  const itemIndex = cart.findIndex((item) => item.id === preke.id);
-
-  if (itemIndex > -1) {
-    // If the item is already in the cart, increase its quantity
-    cart[itemIndex].quantity += 1;
-  } else {
-    // Otherwise, add the item to the cart with quantity 1
-    cart.push({
-      img: preke.thumbnail,
-      id: preke.id,
-      name: preke.title,
-      price: preke.price,
-      discountPrice:
-        preke.price - (preke.discountPercentage / 100) * preke.price,
-      quantity: 1,
-    });
-  }
-
-  itemsQuantity();
-  updateBuyMiddle();
-//   calculateTotalPrice()
-  totalShippingPrice();
-}
-
-// Function to update the cart display (this is just a simple example)
-function updateCartDisplay() {
-  let cartContent = "";
-  cart.forEach((item) => {
-    cartContent += `<div>${item.name} - Quantity: ${item.quantity} - Price: $${item.discountPrice.toFixed(2)}</div>`;
+///------------------------------------------------------------
+// Function to attach event listeners to all "Add to Cart" buttons
+function addItemCart() {
+  const buttons = document.querySelectorAll(".add-to-cart-button");
+    buttons.forEach((button, index) => {
+    button.onclick = function() {
+      addToCart(prekes[index]);
+    };
   });
-  document.querySelector(".cart").innerHTML = cartContent;
 }
+addItemCart();
 
 // Display quantity of items in cart
 function itemsQuantity() {
@@ -98,17 +73,54 @@ function itemsQuantity() {
   document.querySelector(".right").innerHTML = `${cartQuantity} items`;
   document.querySelector(".summary-total-items").innerHTML = `Items ${cartQuantity}`;
 }
-// Function to attach event listeners to all "Add to Cart" buttons
-function attachAddToCartListeners() {
-  const buttons = document.querySelectorAll(".add-to-cart-button");
-  buttons.forEach((button, index) => {
-    button.addEventListener("click", () => {
-      addToCart(prekes[index]); 
+
+
+const cart = [];
+
+function addToCart(preke) {
+  const itemIndex = cart.findIndex((item) => item.id === preke.id);
+  if (itemIndex > -1) {
+    cart[itemIndex].quantity += 1;
+  } else {
+    cart.push({
+      img: preke.thumbnail,
+      id: preke.id,
+      name: preke.title,
+      price: preke.price,
+      discountPrice: preke.price - (preke.discountPercentage / 100) * preke.price,
+      quantity: 1,
     });
-  });
+  }
+
+  itemsQuantity();
+  updateBuyMiddle();
+  totalShippingPrice();
 }
 
-attachAddToCartListeners();
+console.log(cart);
+
+function addTo() {
+  const itemIndex = cart.findIndex((item) => item.id === preke.id);
+  if (itemIndex > -1) {
+    cart[itemIndex].quantity += 1;
+  }
+  itemsQuantity();
+  updateBuyMiddle();
+  totalShippingPrice();
+}
+
+function removeItem() {
+  const itemIndex = cart.findIndex((item) => item.id);
+  if (itemIndex > -1) {
+    cart[itemIndex].quantity -= 1;
+  } else if(cart[itemIndex].quantity === 0){
+      cart.splice(itemIndex, 1);
+  }
+  itemsQuantity();
+  updateBuyMiddle();
+  totalShippingPrice();
+}
+
 
 const main = document.querySelector(".main");
 const buyCart = document.querySelector(".buy-cart");
@@ -139,9 +151,9 @@ function updateBuyMiddle() {
             </div>
         </div>
         <div class="item-quantity">
-            <span onclick="itemRemove(index)" class="material-symbols-outlined item-remove">remove</span>
+            <span onclick="removeItem()" class="material-symbols-outlined item-remove">remove</span>
             <div class="item-selected-quantity">${item.quantity}</div>
-            <span onclick="addExtra()" class="material-symbols-outlined item-add">add</span>
+            <span onclick="addTo()" class="material-symbols-outlined item-add ">add</span>
         </div>
         <div class="item-price-remove">
             <div class="item-price">$${item.price}</div>
@@ -153,14 +165,6 @@ function updateBuyMiddle() {
 }
 updateBuyMiddle();
 
-function addExtra() {
-    const addButtons = document.querySelectorAll(".item-add");
-    addButtons.forEach((button, index) => {
-      button.addEventListener("click", () => {
-        addToCart(cart[index]); // Pass the corresponding product object to addToCart
-      });
-    });
-  }
 
 // Function to calculate the total price of cart items
 function calculateTotalPrice() {
@@ -168,7 +172,6 @@ function calculateTotalPrice() {
 }
 
 
-// Function to update the total price in the UI, including the selected delivery cost
 function totalShippingPrice() {
     const baseTotalPrice = calculateTotalPrice();
     const deliveryCost = parseFloat(document.querySelector('#delivery-options').value);
@@ -184,7 +187,7 @@ document.querySelector('#delivery-options').addEventListener('change', function(
 });
 
 function itemDelete(index) {
-    cart.splice(index, 1); // Remove item completely
+    cart.splice(index, 1);
     updateBuyMiddle();
     itemsQuantity();
     calculateTotalPrice();
