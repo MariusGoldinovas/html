@@ -1,0 +1,50 @@
+.container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-top: 10rem;
+
+}
+img {
+    width: max(600px);
+}
+input{
+    width: 400px;
+    border-radius: 9999px;
+    padding: 1rem;
+    border: 1px solid;
+    font-size: 1rem;
+}
+form {
+    position: relative;
+}
+.buttons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 2rem;
+}
+ .search, .random {
+    padding: .5rem;
+    padding-inline: 2rem;
+}
+.suggestions {
+    position: absolute;
+    z-index: 1;
+    display: none;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: white;
+    width: 400px;
+    padding: 1rem;
+    border: 1px solid;
+}
+.item-suggestion{
+    font-size: 1rem;
+}
+.item-suggestion:hover{
+    font-weight: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+
+}

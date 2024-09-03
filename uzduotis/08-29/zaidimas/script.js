@@ -25,7 +25,7 @@ function timer() {
     sec++;
     document.querySelector(".time").textContent = `${sec} s`;
     let left = random(0, 450);
-    let top = random(0, 550);
+    let top = random(0, 450);
 
     const box = document.querySelector(".box");
     let randomColor = colors[random(0, colors.length - 1)];

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gogle</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <img src="./img/google.png" alt="">
+        <form>
+            <input
+             type="text" 
+             onkeyup="insideSearch(event)" 
+             placeholder="Search">
+        </form>
+        <div class="suggestions"></div>
+        <div class="buttons">
+            <button class="search" onclick="search()">Search</button>
+            <button class="random" onclick="random()">I feel lucky today</button>
+        </div>
+    </div>
+</body>
+</html>

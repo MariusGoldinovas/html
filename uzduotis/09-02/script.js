@@ -40,7 +40,6 @@ function getColor(value) {
         case 16: return '#f59563';
         case 32: return '#f67c5f';
         case 64: return '#f65e3b';
-        default: return '#f65e3b';
     }
 }
 
