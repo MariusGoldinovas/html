@@ -10,6 +10,8 @@ const questions = [
     "When is Easter 2024",
     "How many ounces in a cup"
 ];
+let google = '';
+console.log(google);
 
 function insideSearch(event) {
     const query = event.target.value.toLowerCase();
@@ -39,5 +41,10 @@ function insideSearch(event) {
     } else {
         suggestions.style.display = 'none';
     }
+}
+
+function search(query) {
+    const searchUrl = `https://www.google.lt/search?q=${encodeURIComponent(document.querySelector('input[type="text"]').value)}`;
+    window.open(searchUrl, '_blank').focus();
 }
 
