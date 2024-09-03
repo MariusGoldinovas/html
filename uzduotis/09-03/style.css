@@ -1,3 +1,6 @@
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
 .container {
    display: flex;
    flex-direction: column;
@@ -30,14 +33,13 @@ form {
 }
 .suggestions {
     position: absolute;
-    z-index: 1;
     display: none;
     max-height: 150px;
-    overflow-y: auto;
     background-color: white;
     width: 400px;
-    padding: 1rem;
-    border: 1px solid;
+    padding-inline: 1rem;
+    border-top:none;
+    top: 470px;
 }
 .item-suggestion{
     font-size: 1rem;
