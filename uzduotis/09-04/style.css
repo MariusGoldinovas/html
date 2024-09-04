@@ -1,0 +1,140 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tv-screen {
+    height: 100px;
+    width: 100px;
+    border: 1px solid;
+}
+img {
+    height: 500px;
+}
+.remote{
+    position: relative;
+}
+.volume-up {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    top: 153px;
+    right: 203px;
+    cursor: pointer;
+}
+.volume-down {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    top: 153px;
+    right: 265px;
+    cursor: pointer;
+}
+.channel-down{
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    top: 228px;
+    right: 265px;
+    cursor: pointer;
+}
+.channel-up{
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    top: 228px;
+    right: 203px;
+    cursor: pointer;
+}
+.button0{
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    top: 400px;
+    left: 238px;
+    cursor: pointer;
+}
+.button1{
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    top: 285px;
+    left: 198px;
+    cursor: pointer;
+}
+.button2{
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    top: 285px;
+    left: 238px;
+    cursor: pointer;
+}
+.button3{
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    top: 285px;
+    left: 278px;
+    cursor: pointer;
+}
+.button4{
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    top: 323px;
+    left: 198px;
+    cursor: pointer;
+}
+.button5{
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    top: 323px;
+    left: 238px;
+    cursor: pointer;
+}
+.button6{
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    top: 323px;
+    left: 278px;
+    cursor: pointer;
+}
+.button7{
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    top: 362px;
+    left: 198px;
+    cursor: pointer;
+}
+.button8{
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    top: 362px;
+    left: 238px;
+    cursor: pointer;
+}
+.button9{
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    top: 362px;
+    left: 278px;
+    cursor: pointer;
+}
+.reset{
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    top: 31px;
+    left: 206px;
+    cursor: pointer;
+}
