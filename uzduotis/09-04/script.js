@@ -4,7 +4,7 @@ class Televizorius {
     defaultChannel = 1;  
     defaultVolume = 50; 
 
-    constructor(brand = "Sony"){
+    constructor(brand){
         this.brand = brand;
         this.channel = this.defaultChannel;
         this.volume = this.defaultVolume;
@@ -39,9 +39,10 @@ class Televizorius {
     setChannel(channel) {
         if (channel >= 1 && channel <= 50) {
             this.channel = channel;
-        }
+        }else{
+            return this.channel = 1; 
     }
-
+    }
     reset(){
         this.channel = this.defaultChannel;
         this.volume = this.defaultVolume;
@@ -49,8 +50,10 @@ class Televizorius {
     onTV(){
         return `Televizorius ${this.brand} rodo kanalą: ${this.channel}, garsas ${this.volume}`;
     }
+
 }
-const televizorius = new Televizorius;
+
+const televizorius = new Televizorius('Sony');
 
 
 function updateScreen() {

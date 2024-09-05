@@ -96,3 +96,22 @@ function checkWinner() {
     }
   }
 }
+
+function restartGame() {
+  onTarget = 0;
+  gameOver = false;
+  winningPosition = '';
+
+  document.querySelectorAll(".box").forEach((box) => {
+    box.textContent = "";
+  });
+
+  const line = document.querySelector(".line").style.display = "none";
+  document.querySelector(".header").innerHTML = "X player turn";
+}
+
+// Add a button to trigger the restart function
+const restartButton = document.createElement("button");
+restartButton.textContent = "Restart Game";
+restartButton.addEventListener("click", restartGame);
+document.body.appendChild(restartButton);
