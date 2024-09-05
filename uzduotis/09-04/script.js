@@ -59,20 +59,20 @@ function updateScreen() {
 
 
 
-let firstPress;
+let firstPress = '';
 
 
 let timer;
 
 
 function pressButton(buttonNumber) {
-    if (firstPress === undefined) {
+    if (firstPress === '') {
         firstPress = buttonNumber;
         
         timer = setTimeout(() => {
             televizorius.setChannel(firstPress);
             updateScreen();
-            firstPress = undefined;
+            firstPress = '';
         }, 1000);
         
     } else {
@@ -80,7 +80,7 @@ function pressButton(buttonNumber) {
         televizorius.setChannel(channel);
         updateScreen();  
 
-        firstPress = undefined;
+        firstPress = '';
         clearTimeout(timer);
     }
 }
