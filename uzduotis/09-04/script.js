@@ -59,17 +59,19 @@ function updateScreen() {
 
 
 
-let firstPress; // Starts as undefined
+let firstPress;
 
-// Timer for resetting after 1 second
+
 let timer;
 
-// Function to handle button presses
+
 function pressButton(buttonNumber) {
     if (firstPress === undefined) {
         firstPress = buttonNumber;
         
         timer = setTimeout(() => {
+            televizorius.setChannel(firstPress);
+            updateScreen();
             firstPress = undefined;
         }, 1000);
         
