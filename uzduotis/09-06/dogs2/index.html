@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch dogs</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <style>
+        body, .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        .suggestions {
+            position: absolute;
+            display: none;
+            background-color: white;
+            padding-inline: 1rem;
+            border-top:none;
+            z-index: 1;
+            top: 52px;
+        }
+        .item-suggestion{
+            font-size: 1rem;
+        }
+        .item-suggestion:hover{
+            font-weight: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        form{
+            padding: 2rem;
+        }
+        input{
+            padding: .5rem;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        button {
+            padding: .5rem;
+        }
+    </style>
+    <div class="container">
+        <form>
+            <input
+            type="text" 
+            onkeyup="insideSearch(event)" 
+            placeholder="Search">
+            <button onclick="clear()">Clear</button>
+        </form>
+        <div class="suggestions"></div>
+        <div class="top"></div>
+    </div>
+    </div>
+</body>
+</html>
