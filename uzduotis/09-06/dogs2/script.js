@@ -56,7 +56,7 @@ fetch("https://dog.ceo/api/breeds/list/all")
       }
     }
     inputElement.addEventListener("input", insideSearch);
-  });
+});
+clear = () => document.querySelector('input[type="text"]').textContent = '';
 
-clear = () => document.querySelector('input[type="text"]').innerHTML = '';
   
