@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Info Card</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <div class="card">
+            <div class="user-photo">
+                <button onclick="fetchRandomUser()" onmouseover="openNew()" onmouseout="closeNew()" id="new">New</button>
+                <img onmouseover="openNew()" onmouseout="closeNew()" id="picture" src="" alt="" />
+            </div>
+            <p id="userTitle"></p>
+            <p id="user_value"></p>
+        <ul class="value-list">
+            <li onmouseover="nameInfo()"><i class="bi bi-person-circle"></i></li>
+            <li onmouseover="emailInfo()"><i class="bi bi-envelope"></i></li>
+            <li onmouseover="dateInfo()"><i class="bi bi-calendar3"></i></li>
+            <li onmouseover="mapInfo()"><i class="bi bi-map"></i></li>
+            <li onmouseover="phoneInfo()"><i class="bi bi-telephone"></i></li>
+            <li onmouseover="passInfo()"><i class="bi bi-lock"></i></li>
+        </ul>
+    </div>
+</body>
+</html>
