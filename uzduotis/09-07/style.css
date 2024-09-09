@@ -30,11 +30,7 @@ body {
     display: flex;
     justify-content: center;
 }
-#picture {
-    position: absolute;
-    top: 15px;   
-}
-#new {
+button{
     position: absolute;
     top: 159px;
     left: 46%;
@@ -46,8 +42,6 @@ body {
     font-size: 1rem;
     display: none;
     z-index: 3;
-}
-button{
     cursor: pointer;
 }
 
@@ -59,6 +53,8 @@ button{
     border: 1px solid #3333;
     padding: .25rem;
     background-color: white;
+    position: absolute;
+    top: 15px; 
 }
 
 #userTitle {
