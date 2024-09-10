@@ -1,4 +1,3 @@
-let user = {};
 
 const fetchRandomUser = () => {
 fetch('https://randomuser.me/api/')
