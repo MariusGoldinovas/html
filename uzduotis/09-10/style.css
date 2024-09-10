@@ -20,9 +20,6 @@ img {
 .form-select {
     width: 25px;
 }
-button .search {
-    border-left: 2px solid black;
-}
 .filterByAlcoholic {
     display: inline-flex;
     gap: 1rem;

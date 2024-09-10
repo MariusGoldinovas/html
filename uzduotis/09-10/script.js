@@ -90,4 +90,44 @@ const back = () => {
     result.innerHTML = searchResultsHTML;
 }
 
+const alcoholicCheckbox = document.getElementById('alcoholicCheckbox');
+const nonAlcoholicCheckbox = document.getElementById('nonAlcoholicCheckbox');
 
+
+alcoholicCheckbox.addEventListener('change', filterCocktails);
+nonAlcoholicCheckbox.addEventListener('change', filterCocktails);
+
+function filterCocktails() {
+    const isAlcoholicChecked = alcoholicCheckbox.checked;
+    const isNonAlcoholicChecked = nonAlcoholicCheckbox.checked;
+
+    // If both are unchecked, clear the result
+    if (!isAlcoholicChecked && !isNonAlcoholicChecked) {
+        result.innerHTML = '<p>No filter selected.</p>';
+        return;
+    }
+    let apiUrl = '';
+
+    if (isAlcoholicChecked) {
+        apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic';
+    } else if (isNonAlcoholicChecked) {
+        apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic';
+    }
+    // Fetch the filtered cocktails
+    fetch(apiUrl)
+    .then(resp => resp.json())
+    .then(resp => {
+        // Map the drinks to HTML
+        const data = resp.drinks.map(drink => `
+            <div class="col-4 mb-4" onclick="getCocktail(${drink.idDrink})">
+                <div class="image">
+                    <img src="${drink.strDrinkThumb}" alt="${drink.strDrink}">
+                </div>
+                <h4 class="mt-2">${drink.strDrink}</h4>
+            </div>
+        `);
+
+        // Update the result container with filtered cocktails
+        result.innerHTML = `<div class="row">${data.join('')}</div>`;
+    });
+}
