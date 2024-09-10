@@ -89,3 +89,5 @@ const getCocktail = (id) => {
 const back = () => {
     result.innerHTML = searchResultsHTML;
 }
+
+

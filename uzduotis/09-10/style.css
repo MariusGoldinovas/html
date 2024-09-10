@@ -1,3 +1,7 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
 img {
     max-width: 100%;
     cursor: pointer;
@@ -12,4 +16,15 @@ img {
 }
 .drink-card {
     display: none;
+}
+.form-select {
+    width: 25px;
+}
+button .search {
+    border-left: 2px solid black;
+}
+.filterByAlcoholic {
+    display: inline-flex;
+    gap: 1rem;
+    padding: 1rem;
 }
