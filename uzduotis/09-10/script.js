@@ -1,4 +1,5 @@
 const result = document.querySelector('.result');
+let searchResultsHTML = '';
 
 const searchCocktails = (e) => {
     e.preventDefault();
@@ -18,7 +19,8 @@ const searchCocktails = (e) => {
             </div>
         `);
         
-        result.innerHTML = `<div class="row">${data.join('')}</div>`;
+        searchResultsHTML  = `<div class="row">${data.join('')}</div>`;
+        result.innerHTML = searchResultsHTML;
     });
 }
 
@@ -83,3 +85,7 @@ const getCocktail = (id) => {
 
 // // Kai ciklas baigiasi, surandame HTML elementą su klase .ingredients ir įdedame sugeneruotą ingredientų sąrašą
 // document.querySelector('.ingredients').innerHTML = ingredientsHTML;
+
+const back = () => {
+    result.innerHTML = searchResultsHTML;
+}
