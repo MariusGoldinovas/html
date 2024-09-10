@@ -25,3 +25,6 @@ img {
     gap: 1rem;
     padding: 1rem;
 }
+.alco, .category, .glass {
+    cursor: pointer;
+}
