@@ -69,6 +69,10 @@ const back = () => {
     result.innerHTML = searchResultsHTML;
 }
 
+const random = (e) => {
+    e.preventDefault();
+}
+
 function alco(alcoholType) {
     let value = alcoholType === 'Alcoholic' ? 'Alcoholic' : 'Non_Alcoholic';
     
@@ -149,3 +153,4 @@ function ingredients(ingredientsType) {
         result.innerHTML = searchResultsHTML;
     });
 }
+

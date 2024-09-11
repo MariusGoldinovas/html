@@ -1,0 +1,36 @@
+
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+form {
+    margin: 2rem 0;
+
+}
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap:  4em;
+}
+img {
+    min-height: 445px;
+    max-width: 300px;
+}
+.nav {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+li {
+    list-style-type: none;
+}
+.back, .next {
+    cursor: pointer;
+}
