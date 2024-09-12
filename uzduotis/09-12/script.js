@@ -31,14 +31,13 @@ const searchMovies = (e, page, value, year) => {
     fetch(searchLink)
     .then(resp => resp.json())
     .then(resp => {
-        console.log(resp);
 
         if (resp.Response === "True") {
 
             resp.Search.forEach(movie => {
                 fetchMovieDetails(movie.Title, movie.Year);
             });
-
+            
             totalPages = Math.ceil(resp.totalResults / 10);
             
             if (totalPages > 1) {
