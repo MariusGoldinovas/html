@@ -1,10 +1,10 @@
 const result = document.querySelector('.result');
 let page = 1;
-let totalPages = 1; // Track the total number of pages
+let totalPages = 1;
+
 
 const searchMovies = (e, page, value = null, year = null) => {
     if (e) e.preventDefault();
-
     if (!value) {
         value = document.querySelector('input').value;
     }
@@ -28,7 +28,7 @@ const searchMovies = (e, page, value = null, year = null) => {
 
 
             totalPages = Math.ceil(resp.totalResults / 10);
-
+            
             if (totalPages > 1) {
                 document.querySelector('.nav').style.display = 'flex';
                 document.querySelector('.page-number').textContent = `Page ${page} of ${totalPages}`;
