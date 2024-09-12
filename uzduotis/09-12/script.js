@@ -2,15 +2,29 @@ const result = document.querySelector('.result');
 let page = 1;
 let totalPages = 1;
 
+document.addEventListener('DOMContentLoaded', () => {
+    const storedTitle = localStorage.getItem('movieTitle');
+    const storedYear = localStorage.getItem('movieYear');
 
-const searchMovies = (e, page, value = null, year = null) => {
+    if (storedTitle) {
+        document.querySelector('input#title').value = storedTitle;
+    }
+
+    if (storedYear) {
+        document.querySelector('input#year').value = storedYear;
+    }
+});
+
+
+const searchMovies = (e, page, value, year) => {
     if (e) e.preventDefault();
-    if (!value) {
-        value = document.querySelector('input').value;
-    }
-    if (!year) {
-        year = document.querySelector('#year').value;
-    }
+
+    value = document.querySelector('input').value;
+    year = document.querySelector('#year').value;
+
+    
+    localStorage.setItem('movieTitle', value);
+    localStorage.setItem('movieYear', year);
 
     const searchLink = `https://www.omdbapi.com/?s=${value}&page=${page}&y=${year}&apikey=4f18b32f`;
 
@@ -20,12 +34,10 @@ const searchMovies = (e, page, value = null, year = null) => {
         console.log(resp);
 
         if (resp.Response === "True") {
-            result.innerHTML = ''; 
 
             resp.Search.forEach(movie => {
                 fetchMovieDetails(movie.Title, movie.Year);
             });
-
 
             totalPages = Math.ceil(resp.totalResults / 10);
             
@@ -90,4 +102,16 @@ document.querySelector('.back').addEventListener('click', () => {
         const year = document.querySelector('#year').value;
         searchMovies(null, page, value, year);
     }
+});
+
+document.querySelector('#resetBtn').addEventListener('click', () => {
+
+    localStorage.removeItem('movieTitle');
+    localStorage.removeItem('movieYear');
+
+    document.querySelector('input#title').value = '';
+    document.querySelector('input#year').value = '';
+
+    result.innerHTML = '';
+    document.querySelector('.nav').style.display = 'none'; 
 });
