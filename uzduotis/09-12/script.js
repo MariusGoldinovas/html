@@ -33,7 +33,6 @@ const searchMovies = (e, page, value, year) => {
     .then(resp => {
 
         if (resp.Response === "True") {
-
             resp.Search.forEach(movie => {
                 fetchMovieDetails(movie.Title, movie.Year);
             });
@@ -85,7 +84,7 @@ document.querySelector('.input').addEventListener('submit', (e) => {
     searchMovies(e, page);
 });
 
-document.querySelector('.next').addEventListener('click', () => {
+document.querySelector('.next').addEventListener('click', (e) => {
     if (page < totalPages) {
         page++;
         const value = document.querySelector('input').value;
@@ -94,7 +93,7 @@ document.querySelector('.next').addEventListener('click', () => {
     }
 });
 
-document.querySelector('.back').addEventListener('click', () => {
+document.querySelector('.back').addEventListener('click', (e) => {
     if (page > 1) {
         page--;
         const value = document.querySelector('input').value;

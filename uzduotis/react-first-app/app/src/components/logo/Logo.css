@@ -1,0 +1,13 @@
+.logoSmall {
+    width: 2rem;
+}
+.logo {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+.byLogo{
+    line-height: 24px;
+    font-size: 1rem;
+    font-weight: 500;
+}
