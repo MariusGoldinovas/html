@@ -1,0 +1,11 @@
+.org {
+    text-align: end;
+    font-size: 1.5rem;
+}
+.price {
+    font-size: 2rem;
+    padding: 1rem;
+}
+.disc {
+    color: red;
+}

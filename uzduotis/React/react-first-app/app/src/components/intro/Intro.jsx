@@ -16,7 +16,10 @@ const Intro = () => {
                 </div>
             </div>
             <div className="row">
-                <div className="col"><Buttons/></div>
+                <div className="col"><Buttons text="Mygtukas"/></div>
+                <div className="col"><Buttons text="Mygtukas"/></div>
+                <div className="col"><Buttons text="Mygtukas"/></div>
+                <div className="col"><Buttons text="Mygtukas"/></div>
             </div>
        </div>
     )
