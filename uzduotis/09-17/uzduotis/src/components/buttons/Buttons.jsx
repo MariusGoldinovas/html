@@ -12,19 +12,9 @@ const Buttons = ({ handleClick }) => {
     return (
       <>
         {btnValues.map((row, rowIndex) => (
-          <div key={rowIndex} className="row mb-2">
-            {row.map((btn, btnIndex) => (
-              <div
-                key={btnIndex}
-                className={`col-${btn === '=' || btn === 'C' ? '6' : '3'} d-flex justify-content-center`}
-              >
-                <button
-                  className="btn btn-primary w-100"
-                  style={{ height: '60px' }}
-                  onClick={() => handleClick(btn)}
-                >
-                  {btn}
-                </button>
+          <div key={rowIndex} className="row mb-2"> {row.map((btn, btnIndex) => (
+              <div key={btnIndex} className={`col-${btn === '=' || btn === 'C' ? '6' : '3'} d-flex justify-content-center`}>
+                <button className="btn btn-primary w-100" style={{ height: '60px' }} onClick={() => handleClick(btn)}>{btn}</button>
               </div>
             ))}
           </div>

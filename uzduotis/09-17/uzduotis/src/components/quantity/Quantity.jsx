@@ -1,16 +1,16 @@
 import { useState } from 'react';
 
 const Quantity = () => {
-    const [qty, setCounter] = useState(0);
+    const [qty, setQty] = useState(0);
 
  
 
     const handleClickMin = (e) => {
-        qty > 0 ? setCounter(qty - 1) : 0  
+        qty > 0 ? setQty(qty - 1) : 0  
     }
 
     const handleClickPlus = (e) => {
-        qty < 100 ? setCounter(qty + 1) : 100  
+        qty < 100 ? setQty(qty + 1) : 100  
     }
 
     return (
