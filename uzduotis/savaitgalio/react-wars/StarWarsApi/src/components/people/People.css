@@ -1,0 +1,9 @@
+.row {
+padding: 1rem 0;
+justify-content: center;
+}
+div.title-people {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

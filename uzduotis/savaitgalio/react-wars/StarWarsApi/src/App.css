@@ -1,0 +1,50 @@
+/* Main container */
+.container {
+    display: flex;
+    margin-top: 3rem;
+    border: 1px solid orange;
+    width: 100%;
+    height: auto;
+}
+
+/* Navigation Sidebar */
+.nav {
+    width: 20%;
+    border: 1px solid red;
+    padding: 1rem;
+}
+
+/* Content Area for Films and People */
+.content-area {
+    display: flex;
+    flex-direction: column; /* Stacks Films and People vertically */
+    width: 80%; /* Takes the remaining width after the nav */
+    padding: 1rem;
+}
+
+/* Film Section */
+.film-card {
+    border: 1px solid green;
+    margin-bottom: 1rem;
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem;
+}
+
+/* People Section */
+.people {
+    border: 1px solid blue;
+    padding: 1rem;
+}
+
+/* UL Styling for Nav */
+.nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav li {
+    margin: 1rem 0;
+    cursor: pointer;
+    font-weight: bold;
+}
