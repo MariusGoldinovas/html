@@ -1,0 +1,46 @@
+.card {
+    width: 450px;
+    height: 500px;
+    padding: 1.5rem;
+    border: none;
+}
+.card-image{
+    border-radius: 1rem;
+}
+.category {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+.content {
+    font-size: 14px;
+    color: #888888;
+}
+.author-image {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+.author {
+    display: flex;
+    padding-block: 1rem;
+}
+.name-role{
+    display: flex;
+    flex-direction: column;
+    padding-inline: 1rem;
+}
+.author-name {
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+.author-role {
+    font-size: 13px;
+    color: #888888;
+}
