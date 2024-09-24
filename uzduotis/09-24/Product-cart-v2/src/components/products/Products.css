@@ -1,0 +1,22 @@
+.half-star {
+    color: gold;
+  }
+  
+.material-symbols-outlined {
+    color: lightgray;
+  }
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 100,
+    'GRAD' 0,
+    'opsz' 24
+}
+.full-star {
+    color: gold;
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 100,
+    'GRAD' 0,
+    'opsz' 24
+}

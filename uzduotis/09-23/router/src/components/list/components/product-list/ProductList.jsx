@@ -12,9 +12,8 @@ const ProductList = () => {
       }, []);
 
     useEffect(() => {
-        if (products.length > 0) { 
         localStorage.setItem('products', JSON.stringify(products));
-        }
+
       }, [products]);
 
 
