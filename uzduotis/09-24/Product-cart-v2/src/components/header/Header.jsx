@@ -7,10 +7,18 @@ const Header = () => {
       <div className="container">
         <nav className="custom-nav">
           <ul className="wtf">
-            <li>HOME</li>
-            <li>LIST</li>
-            <li>CREATE LIST</li>
-            <li>CART</li>
+            <li>
+              <Link to="/home-page">HOME</Link>
+            </li>
+            <li>
+              <Link to="/products">LIST</Link>
+            </li>
+            <li>
+              <Link to="/form-add-product">CREATE LIST</Link>
+            </li>
+            <li>
+              <Link to="/cart">CART</Link>
+            </li>
           </ul>
         </nav>
       </div>
