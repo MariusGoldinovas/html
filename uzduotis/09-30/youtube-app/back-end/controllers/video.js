@@ -1,73 +1,106 @@
 import { Router } from 'express';
 import Video from '../models/video.js';
+import { upload } from '../middleware/upload.js';
 
 const router = Router();
 
-// Fetch all videos
+// GET all videos
 router.get('/', async (req, res) => {
-    try {
-        const videos = await Video.find();
-        res.json(videos);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Nepavyko susisiekti su serveriu' });
-    }
+  try {
+      res.json(
+          await Video.find()
+          .populate({ path: 'user', select: ['userThumbnail', 'name'] })
+      );
+  } catch {
+      res.status(500).json('Unable to reach server');
+  }
 });
 
-// Fetch a specific video by ID
 router.get('/:id', async (req, res) => {
+  try {
+      res.json(
+          await Video
+          .findById(req.params.id)
+          .populate({ path: 'user', select: ['userThumbnail', 'name'] })
+      );
+  } catch {
+      res.status(500).json('Unable to reach server');
+  }
+});
+
+router.get('/search', (req, res) => {
+    const query = req.query.q;
+    if (query) {
+      // Filter videos based on query
+      const filteredVideos = Video.videos.filter(video =>
+        video.title.toLowerCase().includes(query.toLowerCase()) ||
+        video.description.toLowerCase().includes(query.toLowerCase())
+      );
+      res.json(filteredVideos);
+    } else {
+      res.json(videos); // Return all videos if no query
+    }
+  });
+
+// POST a new video
+router.post('/', upload.single('thumbnail'), async (req, res) => {
     try {
-        const video = await Video.findById(req.params.id);
-        if (video) {
-            res.json(video);
-        } else {
-            res.status(404).json({ message: 'Video nerastas' });
-        }
+        req.body.thumbnail = req.file.filename;
+
+        res.status(201).json({ 
+            data: await Video.create(req.body),
+            message: 'Video successfully uploaded'
+        });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Nepavyko susisiekti su serveriu' });
+        res.status(500).json({ error: 'Unable to reach server' });
     }
 });
 
-// Add a new video
-router.post('/', async (req, res) => {
-    try {
-        const newVideo = await Video.create(req.body);
-        res.status(201).json(newVideo);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Nepavyko pridėti video' });
-    }
-});
-
-// Update a video by ID
+// PUT to update a video by ID
 router.put('/:id', async (req, res) => {
     try {
-        const updatedVideo = await Video.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (updatedVideo) {
-            res.json(updatedVideo);
-        } else {
-            res.status(404).json({ message: 'Video nerastas' });
-        }
+      const updatedVideo = await Video.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      if (!updatedVideo) {
+        return res.status(404).json({ error: 'Video not found' });
+      }
+      res.json({ message: 'Video successfully updated', data: updatedVideo });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Nepavyko atnaujinti video' });
+      res.status(500).json({ error: 'Unable to update video' });
     }
-});
+  });
+  
 
-// Delete a video by ID
+// DELETE a video by ID
 router.delete('/:id', async (req, res) => {
     try {
         const deletedVideo = await Video.findByIdAndDelete(req.params.id);
-        if (deletedVideo) {
-            res.json({ message: 'Video ištrintas sėkmingai' });
-        } else {
-            res.status(404).json({ message: 'Video nerastas' });
+        if (!deletedVideo) {
+            return res.status(404).json({ error: 'Video not found' });
         }
+        res.json({ 
+            message: 'Video successfully deleted' 
+        });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Nepavyko ištrinti video' });
+        res.status(500).json({ error: 'Unable to delete video' });
     }
 });
+
+// PUT route to increment views for a video
+router.put('/increment-views/:id', async (req, res) => {
+    try {
+      const video = await Video.findByIdAndUpdate(
+        req.params.id,
+        { $inc: { views: 1 } }, // Increment the view count by 1
+        { new: true }
+      );
+      if (!video) {
+        return res.status(404).json({ error: 'Video not found' });
+      }
+      res.json(video); 
+    } catch (error) {
+      res.status(500).json({ error: 'Unable to update views' });
+    }
+  });
+  
 
 export default router;

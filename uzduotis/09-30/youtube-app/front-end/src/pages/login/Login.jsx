@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -10,34 +11,27 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Correct way to encode form data
+    // Form data to be sent
     const urlEncodedData = new URLSearchParams({
       email: email,
       password: password
     }).toString();
 
     try {
-      const response = await fetch('http://localhost:3000/api/user/login', {
-        method: 'POST',
+      const response = await axios.post('http://localhost:3000/api/user/login', urlEncodedData, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: urlEncodedData,
+        }
       });
 
-      // Check if there is content to be parsed as JSON
-      const result = response.headers.get('Content-Type')?.includes('application/json')
-        ? await response.json()
-        : {};
-
-      if (response.ok) {
+      if (response.status === 200) {
         navigate('/home');
       } else {
-        setError(result.message || 'Login failed. Please try again.');
+        setError(response.data.message || 'Login failed. Please try again.');
       }
     } catch (error) {
       console.error('Error logging in:', error);
-      setError('An error occurred during login. Please try again.');
+      setError(error.response?.data?.message || 'An error occurred during login. Please try again.');
     }
   };
 

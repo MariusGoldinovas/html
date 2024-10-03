@@ -2,3 +2,15 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+span {
+    color: black;
+}
+i {
+    color: black !important;
+}
+

@@ -1,16 +1,24 @@
 import mongoose, { Schema } from 'mongoose';
 
-export default mongoose.model('Video',new Schema({
+export default mongoose.model('Video', new Schema({
     title: String,
     description: String,
     videoId: String,
     thumbnail: String,
-    views: { 
+    views: {
         type: Number,
         default: 0
     },
-    categoryId: Schema.ObjectId,
-    userId: Schema.ObjectId,
+    category: {
+        type: Schema.ObjectId,
+        ref: 'Category',
+        // required: true
+    },
+    user: {
+        type: Schema.ObjectId,
+        ref: 'User',
+        required: true
+    },
 }, {
-    timestamps: true // Automatically adds createdAt and updatedAt fields
+    timestamps: true 
 }));
