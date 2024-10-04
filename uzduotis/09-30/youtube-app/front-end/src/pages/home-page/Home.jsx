@@ -14,9 +14,8 @@ const Home = () => {
       .then((resp) => {
         const sortedData = resp.data.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        ); // Sort by date
+        ); 
         setData(sortedData);
-        console.log(data)
       })
       .catch((err) => {
         console.error("Error fetching videos:", err);

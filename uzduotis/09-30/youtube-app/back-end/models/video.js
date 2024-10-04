@@ -12,7 +12,7 @@ export default mongoose.model('Video', new Schema({
     category: {
         type: Schema.ObjectId,
         ref: 'Category',
-        // required: true
+        required: true
     },
     user: {
         type: Schema.ObjectId,

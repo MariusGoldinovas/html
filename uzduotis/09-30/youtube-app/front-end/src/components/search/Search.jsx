@@ -13,7 +13,7 @@ const Search = () => {
   };
 
   return (
-    <form onSubmit={handleSearch} className="input-group mb-3">
+    <form onSubmit={handleSearch} className="input-group ">
       <input
         type="text"
         className="form-control"

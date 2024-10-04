@@ -2,19 +2,9 @@ import { Router } from 'express';
 import User from '../models/user.js';
 import { upload } from '../middleware/upload.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const router = Router();
-
-// Kanalo informacija
-router.get('/:id', async (req, res) => {
-    try {
-        res.json(
-            await User.findById(req.params.id)
-        );
-    } catch {
-        res.status(500).json('Unable to reach server');
-    }
-});
 
 // GET all users
 router.get('/', async (req, res) => {
@@ -136,6 +126,44 @@ router.post('/login', async (req, res) => {
         console.log("Įvyko klaida", error.message);
         return res.status(500).json({ message: "Įvyko klaida, bandykite dar kartą vėliau" });
     }
+});
+
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ message: "Missing email or password." });
+    }
+
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(401).json({ message: "Invalid credentials." });
+        }
+
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) {
+            return res.status(401).json({ message: "Invalid credentials." });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+
+        // Send token and user data to client
+        res.json({ token, user });
+    } catch (error) {
+        return res.status(500).json({ message: "Internal server error." });
+    }
+});
+  
+  router.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).json({ message: 'Failed to log out' });
+        }
+        res.clearCookie('connect.sid');
+        res.json({ message: 'Logged out successfully' });
+    });
 });
 
 export default router;

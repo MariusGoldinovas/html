@@ -1,11 +1,21 @@
 import { Link } from 'react-router-dom';
 import Search from '../search/Search';
-
+import { useEffect, useState } from 'react';
 
 const Header = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Get the user from localStorage
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
+
   return (
     <div className="row d-flex justify-content-between align-items-center mt-4 mx-3">
-      <div className="col-2">
+      <div className="col-2 d-flex justify-content-center">
         <Link to="/home">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Logo_of_YouTube_%282015-2017%29.svg"
@@ -18,13 +28,18 @@ const Header = () => {
         <Search />
       </div>
       <div className="col-1">
-        <Link to="/login">
+      <Link to="/login">
+        {user?.userThumbnail ? (
           <img
-            src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=2283"
-            style={{ height: 50, borderRadius: 50 }}
-            alt=""
+            src={user.userThumbnail}
+            style={{ height: 50, borderRadius: '50%' }}
+            alt="User Thumbnail"
           />
-        </Link>
+        ) : (
+          <i className="bi bi-person-lock" style={{ fontSize: 30 }}></i> // Display icon if no thumbnail
+        )}
+      </Link>
+
       </div>
       <div className="col-2">
         <Link to="/add-user">

@@ -1,66 +1,118 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { formatTimeAgo } from '../../utils/common';
 import axios from 'axios';
+import { BASE_URL } from '../../utils/config'; // Ensure you import BASE_URL
 
-const Grid = ({ data }) => {
-  const incrementViews = async (videoId) => {
-    try {
-      await axios.put(`http://localhost:3000/api/video/increment-views/${videoId}`);
-    } catch (error) {
-      console.error('Error incrementing views:', error);
-    }
+const Grid = ({ data, incrementViews }) => {
+  const [sortOption, setSortOption] = useState('date');
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  useEffect(() => {
+    // Fetch categories from backend
+    axios.get(BASE_URL + '/api/category/')
+      .then(resp => setCategories(resp.data))
+      .catch(err => console.error('Error fetching categories:', err));
+  }, []);
+
+  // Handle sorting change
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value); // Use setSortOption to update the sorting option
   };
 
-  const sortedData = [...data].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  // Filter videos by selected category if any
+  const filteredData = selectedCategory
+    ? data.filter(video => video.category === selectedCategory)
+    : data;
+
+  // Sort the filtered data based on selected option
+  const sortedData = [...filteredData].sort((a, b) => {
+    if (sortOption === 'views') {
+      return b.views - a.views;
+    } else if (sortOption === 'createdAt' || sortOption === 'date') {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    } else if (sortOption === 'title') {
+      return a.title.localeCompare(b.title);
+    }
+    return 0;
+  });
 
   return (
-    <div className="row row-cols-4 text-center mt-5 p-3 mx-3">
-      {sortedData.map((video, index) => (
-        <div key={index} className="col-3">
-          <Link
-            to={`/video-player/${video._id}`}
-            onClick={() => incrementViews(video._id)}
+    <>
+      {/* Control bar for sorting and category selection */}
+      <div className="container-fluid d-flex  justify-content-between my-4 px-5">
+        <div className="d-flex gap-3 align-items-center">
+          <label style={{ minWidth: 100 }}>Sort videos:</label>
+          <select
+            className="form-control"
+            onChange={handleSortChange}
           >
-            <div className="thumbnail">
-              <img
-                style={{ height: 260 }}
-                src={`http://localhost:3000/photos/${video.thumbnail}`}
-                alt={`${video.title} thumbnail`}
-              />
-            </div>
-            <div className="video-info d-flex flex-column justify-content-evenly">
-              <h3>
-                {video.title.length > 85 ? `${video.title.slice(0, 85)}...` : video.title}
-              </h3>
-              <p>
-                {video.description.length > 200
-                  ? `${video.description.slice(0, 200)}...`
-                  : video.description}
-              </p>
-            </div>
-          </Link>
+            <option value="date">Date</option>
+            <option value="views">View Count</option>
+            <option value="title">Title</option>
+          </select>
+        </div>
 
-          <div className="d-flex justify-content-between">
-            {video.user && (
-              <Link to={`/channel/${video.user._id}`}>
-                <div className="user-img">
-                  {video.user?.name}
+        <div className="btn-group" role="group" aria-label="Category filter">
+          <button
+            className={`btn btn-outline-secondary ${selectedCategory === null ? 'active' : ''}`}
+            onClick={() => setSelectedCategory(null)}
+          >
+            All Categories
+          </button>
+          {categories.map((category) => (
+            <button
+              key={category._id}
+              className={`btn btn-outline-secondary ${selectedCategory === category._id ? 'active' : ''}`}
+              onClick={() => setSelectedCategory(category._id)}
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Video grid, centered */}
+      <div className="container-fluid px-5 ">
+        <div className="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+          {sortedData.map((video, index) => (
+            <div key={index} className="col-3 ">
+              <Link to={`/video-player/${video._id}`}>
+                <div className="thumbnail">
                   <img
-                    style={{ width: 40, height: 40, borderRadius: '50%' }}
+                    style={{ width: '100%', height: 'auto', maxHeight: '260px', objectFit: 'cover' }}
                     src={`http://localhost:3000/photos/${video.thumbnail}`}
-                    alt={`${video.user?.name}'s thumbnail`}
+                    alt={`${video.title} thumbnail`}
                   />
                 </div>
+                <div className="video-info mt-2">
+                  <h5>{video.title.length > 85 ? `${video.title.slice(0, 85)}...` : video.title}</h5>
+                  <p>{video.description.length > 200 ? `${video.description.slice(0, 200)}...` : video.description}</p>
+                </div>
               </Link>
-            )}
-            <div className="d-flex flex-column">
-              <span>Views: {video.views}</span>
-              <span>{formatTimeAgo(video.createdAt)}</span>
+
+              <div className="d-flex justify-content-between align-items-center mt-2">
+                {video.user && (
+                  <Link to={`/channel/${video.user._id}`} className="d-flex align-items-center">
+                    <img
+                      style={{ width: 40, height: 40, borderRadius: '50%' }}
+                      src={`http://localhost:3000/photos/${video.user.userThumbnail}`}
+                      alt={`${video.user?.name}'s thumbnail`}
+                    />
+                  </Link>
+                )}
+                <div className="text-right">
+                  <span>Views: {video.views}</span>
+                  <br />
+                  <span>{formatTimeAgo(video.createdAt)}</span>
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
-    </div>
+      </div>
+    </>
   );
 };
 

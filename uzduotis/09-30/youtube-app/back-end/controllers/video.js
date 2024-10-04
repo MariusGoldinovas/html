@@ -5,10 +5,28 @@ import { upload } from '../middleware/upload.js';
 const router = Router();
 
 // GET all videos
+// router.get('/', async (req, res) => {
+//   try {
+//       res.json(
+//           await Video.find()
+//           .populate({ path: 'user', select: ['userThumbnail', 'name'] })
+//       );
+//   } catch {
+//       res.status(500).json('Unable to reach server');
+//   }
+// });
+
 router.get('/', async (req, res) => {
+  const sortOptions = ['views', 'createdAt', 'title'];
+
+  const filter = {};
+  if(req.query.category) 
+      filter.category = req.query.category;
+
   try {
       res.json(
-          await Video.find()
+          await Video.find(filter)
+          .sort({ [sortOptions[sortOptions.indexOf(req.query.sort)]] : 'desc' })
           .populate({ path: 'user', select: ['userThumbnail', 'name'] })
       );
   } catch {
@@ -16,13 +34,27 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET all videos by user ID
+router.get('/user/:userId', async (req, res) => {
+  try {
+      const videos = await Video.find({ user: req.params.userId }).populate({ path: 'user', select: ['userThumbnail', 'name'] });
+      res.json(videos);
+  } catch (error) {
+      console.error('Error fetching videos for user:', error);
+      res.status(500).json({ error: 'Unable to fetch videos for the user' });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
-      res.json(
-          await Video
-          .findById(req.params.id)
-          .populate({ path: 'user', select: ['userThumbnail', 'name'] })
-      );
+    const data = await Video
+    .findById(req.params.id)
+    .populate({ path: 'user', select: ['userThumbnail', 'name'] });
+
+      res.json(data);
+
+      // Peržiūrų skaičiaus padidinimas
+      await Video.findByIdAndUpdate(req.params.id, { views: ++data.views });
   } catch {
       res.status(500).json('Unable to reach server');
   }
@@ -84,23 +116,5 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ error: 'Unable to delete video' });
     }
 });
-
-// PUT route to increment views for a video
-router.put('/increment-views/:id', async (req, res) => {
-    try {
-      const video = await Video.findByIdAndUpdate(
-        req.params.id,
-        { $inc: { views: 1 } }, // Increment the view count by 1
-        { new: true }
-      );
-      if (!video) {
-        return res.status(404).json({ error: 'Video not found' });
-      }
-      res.json(video); 
-    } catch (error) {
-      res.status(500).json({ error: 'Unable to update views' });
-    }
-  });
-  
 
 export default router;

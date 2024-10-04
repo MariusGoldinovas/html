@@ -1,20 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { extractFormData } from "../../utils/common.js";
+import { BASE_URL } from '../../utils/config';
 import axios from 'axios';
 
 const Upload = () => {
-    const [message, setMessage] = useState();
+    const [message, setMessage] = useState(null);
+    const [categories, setCategories] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        axios.get(BASE_URL + '/api/category/')
+        .then(resp => setCategories(resp.data))
+        .catch(err => {
+            setMessage({
+                data: 'Error fetching categories.',
+                status: 'danger'
+            });
+        });
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const data = new FormData(e.target);
+        data.append('user', '66fe8a7d59b55a220e135698'); // Assuming this is a fixed user ID
 
-        data.append('user', '66fe8a7d59b55a220e135698');
-
-        axios.post('http://localhost:3000/api/video/', data)
+        axios.post(BASE_URL + '/api/video/', data)
             .then(resp => {
                 setMessage({
                     data: resp.data.message,
@@ -25,7 +36,7 @@ const Upload = () => {
                 }, 3000);
             })
             .catch(err => setMessage({
-                data: err.response.data,
+                data: err.response ? err.response.data : 'An error occurred.',
                 status: 'danger'
             }));
     };
@@ -60,7 +71,6 @@ const Upload = () => {
                     <input
                         type="file"
                         name="thumbnail"
-                        placeholder="Add thumbnail"
                         className="form-control"
                         id="thumbnail"
                     />
@@ -72,6 +82,23 @@ const Upload = () => {
                         placeholder="Enter video id"
                         className="form-control"
                     />
+                </div>
+                <div className="mb-3">
+                    <select 
+                        name="category"
+                        className="form-control"
+                        required
+                    >
+                        {categories.length > 0 ? (
+                            categories.map(el => (
+                                <option key={el._id} value={el._id}>
+                                    {el.name}
+                                </option>
+                            ))
+                        ) : (
+                            <option disabled>No categories available</option>
+                        )}
+                    </select>
                 </div>
                 <button className="btn btn-primary">
                     Submit

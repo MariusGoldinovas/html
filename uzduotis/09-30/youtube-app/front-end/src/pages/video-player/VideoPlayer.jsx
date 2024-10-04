@@ -6,13 +6,15 @@ import axios from 'axios';
 
 const VideoPlayer = () => {
   const { id } = useParams();
-  const [video, setVideo] = useState(null);
+  const [video, setVideo] = useState();
 
   useEffect(() => {
+    // Fetch the video details
     axios.get(BASE_URL + '/api/video/' + id)
       .then(resp => {
         setVideo(resp.data);
-      });
+      })
+      .catch(error => console.error('Error fetching video data:', error));
   }, [id]);
 
   if (!video) {
@@ -24,6 +26,7 @@ const VideoPlayer = () => {
   return (
     <div className='container' style={{ textAlign: 'center', marginTop: '20px' }}>
       <iframe 
+        className='rounded-3'
         width="100%" 
         height="650" 
         src={url} 
@@ -34,17 +37,22 @@ const VideoPlayer = () => {
         style={{ border: 'none' }}  
       ></iframe>
       <div className="container d-flex flex-column justify-content-start">
-        <h2> {video.title}</h2>
+        <h3 className='text-start py-2'>{video.title}</h3>
       </div>
       <div className="p-3 bg-secondary-subtle rounded-3">
-                <div className="d-flex gap-2">
-                    <strong>{video.views} views</strong>
-                    <strong>{formatDate(video.createdAt)}</strong>
-                </div>
-                <div>
-                    {video.description}
-                </div>
-            </div>
+        <div className="d-flex gap-2 p-1">
+          {/* Ensure that video.user exists before accessing userThumbnail */}
+          {video.user && (
+            <>
+              <img src={video.user.userThumbnail} alt="User Thumbnail"/>
+              <strong>{video.user.name}</strong>
+            </>
+          )}
+          <strong>{video.views} views</strong>
+          <strong>{formatDate(video.createdAt)}</strong>
+        </div>
+        <div className='text-start'>{video.description}</div>
+      </div>
     </div>
   );
 };
