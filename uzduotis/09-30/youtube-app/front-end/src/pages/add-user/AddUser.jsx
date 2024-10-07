@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { extractFormData } from "../../utils/common.js";
 import axios from 'axios';
 
 const AddUser = () => {

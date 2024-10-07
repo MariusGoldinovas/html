@@ -2,23 +2,26 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { formatTimeAgo } from '../../utils/common';
 import axios from 'axios';
-import { BASE_URL } from '../../utils/config'; // Ensure you import BASE_URL
+import { BASE_URL } from '../../utils/config';
 
-const Grid = ({ data, incrementViews }) => {
+const Grid = ({ data }) => {
   const [sortOption, setSortOption] = useState('date');
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
-    // Fetch categories from backend
-    axios.get(BASE_URL + '/api/category/')
-      .then(resp => setCategories(resp.data))
-      .catch(err => console.error('Error fetching categories:', err));
+    axios.get(`${BASE_URL}/api/category/`)
+      .then(resp => {
+        setCategories(resp.data);
+      })
+      .catch(err => {
+        console.error('Error fetching categories:', err);
+      });
   }, []);
 
   // Handle sorting change
   const handleSortChange = (e) => {
-    setSortOption(e.target.value); // Use setSortOption to update the sorting option
+    setSortOption(e.target.value); // Update the sorting option
   };
 
   // Filter videos by selected category if any
@@ -40,20 +43,16 @@ const Grid = ({ data, incrementViews }) => {
 
   return (
     <>
-      {/* Control bar for sorting and category selection */}
-      <div className="container-fluid d-flex  justify-content-between my-4 px-5">
+      {/* Sort and filter options */}
+      <div className="container-fluid d-flex justify-content-between my-4 px-5">
         <div className="d-flex gap-3 align-items-center">
           <label style={{ minWidth: 100 }}>Sort videos:</label>
-          <select
-            className="form-control"
-            onChange={handleSortChange}
-          >
+          <select className="form-control" onChange={handleSortChange}>
             <option value="date">Date</option>
             <option value="views">View Count</option>
             <option value="title">Title</option>
           </select>
         </div>
-
         <div className="btn-group" role="group" aria-label="Category filter">
           <button
             className={`btn btn-outline-secondary ${selectedCategory === null ? 'active' : ''}`}
@@ -74,18 +73,19 @@ const Grid = ({ data, incrementViews }) => {
       </div>
 
       {/* Video grid, centered */}
-      <div className="container-fluid px-5 ">
+      <div className="container-fluid px-5">
         <div className="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
           {sortedData.map((video, index) => (
-            <div key={index} className="col-3 ">
+            <div key={index} className="col-3">
               <Link to={`/video-player/${video._id}`}>
                 <div className="thumbnail">
                   <img
                     style={{ width: '100%', height: 'auto', maxHeight: '260px', objectFit: 'cover' }}
-                    src={`http://localhost:3000/photos/${video.thumbnail}`}
+                    src={`${BASE_URL}/photos/${video.thumbnail}`}
                     alt={`${video.title} thumbnail`}
                   />
                 </div>
+
                 <div className="video-info mt-2">
                   <h5>{video.title.length > 85 ? `${video.title.slice(0, 85)}...` : video.title}</h5>
                   <p>{video.description.length > 200 ? `${video.description.slice(0, 200)}...` : video.description}</p>
@@ -97,8 +97,8 @@ const Grid = ({ data, incrementViews }) => {
                   <Link to={`/channel/${video.user._id}`} className="d-flex align-items-center">
                     <img
                       style={{ width: 40, height: 40, borderRadius: '50%' }}
-                      src={`http://localhost:3000/photos/${video.user.userThumbnail}`}
-                      alt={`${video.user?.name}'s thumbnail`}
+                      src={video.user.userThumbnail ? `${BASE_URL}/photos/${video.user.userThumbnail}` : '/default-user-thumbnail.png'}
+                      alt={`${video.user.name}'s thumbnail`}
                     />
                   </Link>
                 )}

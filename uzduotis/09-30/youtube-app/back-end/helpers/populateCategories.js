@@ -8,14 +8,12 @@ export const populateCategories = async () => {
         const categoryCount = await Category.countDocuments();
         
         if (categoryCount > 0) {
-            console.log('Categories already populated');
             return;  // If categories already exist, exit the function
         }
 
         // Batch insert categories to avoid multiple database calls
         await Category.insertMany(categories.map(name => ({ name })));
 
-        console.log('Categories successfully populated!');
     } catch (error) {
         console.error('Error populating categories:', error);
     }

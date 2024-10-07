@@ -10,6 +10,7 @@ import Admin from "./pages/admin/Admin";
 import EditVideo from "./components/edit-video/EditVideo";
 import EditUser from "./components/edit-user/EditUser";
 import Channel from "./pages/channel/Channel";
+import Logout from "./pages/logout/Logout";
 import './App.css';
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/edit-video/:id" element={<EditVideo/>} />
         <Route path="/edit-user/:id" element={<EditUser/>} />
         <Route path="/channel/:id" element={ <Channel/>}/>
+        <Route path="/logout" element={ <Logout />}/>
       </Routes>
     </BrowserRouter>
   );

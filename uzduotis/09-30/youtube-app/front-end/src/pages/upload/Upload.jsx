@@ -9,36 +9,44 @@ const Upload = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(BASE_URL + '/api/category/')
-        .then(resp => setCategories(resp.data))
-        .catch(err => {
-            setMessage({
-                data: 'Error fetching categories.',
-                status: 'danger'
+        axios.get(BASE_URL + '/api/category/', { withCredentials: true })  // Enable credentials
+            .then(resp => setCategories(resp.data))
+            .catch(err => {
+                setMessage({
+                    data: 'Error fetching categories.',
+                    status: 'danger'
+                });
             });
-        });
     }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // Create FormData from form submission
         const data = new FormData(e.target);
-        data.append('user', '66fe8a7d59b55a220e135698'); // Assuming this is a fixed user ID
 
-        axios.post(BASE_URL + '/api/video/', data)
-            .then(resp => {
-                setMessage({
-                    data: resp.data.message,
-                    status: 'success'
-                });
-                setTimeout(() => {
-                    navigate('/');
-                }, 3000);
-            })
-            .catch(err => setMessage({
-                data: err.response ? err.response.data : 'An error occurred.',
+        axios.post(BASE_URL + '/api/video/', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            withCredentials: true  // Enable credentials (cookies will be sent)
+        })
+        .then(resp => {
+            setMessage({
+                data: resp.data.message,
+                status: 'success'
+            });
+            setTimeout(() => {
+                navigate('/');
+            }, 3000);  // Redirect after 3 seconds
+        })
+        .catch(err => {
+            console.error('Error uploading video:', err);  // Log the error for debugging
+            setMessage({
+                data: err.response?.data?.message || 'An error occurred. Please try again.',
                 status: 'danger'
-            }));
+            });
+        });
     };
 
     return (
@@ -73,6 +81,7 @@ const Upload = () => {
                         name="thumbnail"
                         className="form-control"
                         id="thumbnail"
+                        required
                     />
                 </div>
                 <div className="mb-3">
@@ -81,6 +90,7 @@ const Upload = () => {
                         name="videoId"
                         placeholder="Enter video id"
                         className="form-control"
+                        required
                     />
                 </div>
                 <div className="mb-3">
@@ -100,7 +110,7 @@ const Upload = () => {
                         )}
                     </select>
                 </div>
-                <button className="btn btn-primary">
+                <button className="btn btn-primary" type="submit">
                     Submit
                 </button>
             </form>
