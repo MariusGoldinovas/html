@@ -2,17 +2,16 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({ setUser }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(""); // Clear any previous errors
+    setError("");
 
     try {
       const response = await axios.post(
@@ -20,14 +19,12 @@ const Login = ({ setUser }) => {
         { email, password },
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true, // Ensure the session cookie is sent with the request
+          withCredentials: true,
         }
       );
 
       if (response.status === 200) {
-        // If login is successful, redirect to the homepage
-        setUser(response.data.userId);
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       if (error.response) {
@@ -47,8 +44,6 @@ const Login = ({ setUser }) => {
       } else {
         setError("Unable to reach server. Please check your connection.");
       }
-    } finally {
-      setLoading(false); // Stop the loading state
     }
   };
 
@@ -64,7 +59,6 @@ const Login = ({ setUser }) => {
             onChange={(e) => setEmail(e.target.value)}
             required
             className="form-control"
-            disabled={loading}
           />
         </div>
         <div className="mb-3">
@@ -75,11 +69,11 @@ const Login = ({ setUser }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
             className="form-control"
-            disabled={loading}
           />
         </div>
-        <button type="submit" className="btn btn-secondary" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
+        <button type="submit" className="btn btn-secondary">
+          {" "}
+          login
         </button>
       </form>
 
