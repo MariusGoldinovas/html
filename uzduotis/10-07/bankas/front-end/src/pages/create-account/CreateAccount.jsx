@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { generate, validate } from "../../utils/id.js";
 
 const CreateAccount = () => {
   const [message, setMessage] = useState();
+  const [idNumber, setIdNumber] = useState(""); // State to store the idNumber
   const navigate = useNavigate();
 
+  // Handle form submission to create account
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -29,6 +32,25 @@ const CreateAccount = () => {
           status: "danger",
         });
       });
+  };
+
+  // Button 1: Generate a random ID number and set it in the input field
+  const handleGenerate = () => {
+    const generatedId = generate(); // Call the generate() function
+    setIdNumber(generatedId); // Update state with generated ID
+  };
+
+  // Button 2: Validate the current ID number in the input field
+  const handleValidate = () => {
+    const result = validate(idNumber); // Call the validate() function with the idNumber
+    if (result.isValid) {
+      setMessage({ data: "ID number is valid", status: "success" });
+    } else {
+      setMessage({
+        data: result.error || "Invalid ID number",
+        status: "danger",
+      });
+    }
   };
 
   return (
@@ -62,11 +84,35 @@ const CreateAccount = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="idNumber">Enter national ID number</label>
-          <input
-            name="idNumber"
-            placeholder="Enter 11 numbers"
-            className="form-control"
-          />
+          <div className="row">
+            <div className="col-md-6">
+              <input
+                name="idNumber"
+                value={idNumber}
+                onChange={(e) => setIdNumber(e.target.value)} // Update the state with input value
+                placeholder="Enter 11 numbers"
+                className="form-control"
+              />
+            </div>
+            <div className="col-md-3">
+              <button
+                type="button"
+                className="btn btn-primary w-100"
+                onClick={handleGenerate} // Button 1 triggers generate function
+              >
+                Generate ID
+              </button>
+            </div>
+            <div className="col-md-3">
+              <button
+                type="button"
+                className="btn btn-secondary w-100"
+                onClick={handleValidate} // Button 2 triggers validate function
+              >
+                Validate ID
+              </button>
+            </div>
+          </div>
         </div>
         <div className="mb-3">
           <label htmlFor="money">

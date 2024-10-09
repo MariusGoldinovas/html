@@ -2,10 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
+  // onLogin will be passed from the parent component
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -17,14 +19,11 @@ const Login = () => {
       const response = await axios.post(
         "http://localhost:3000/api/user/login",
         { email, password },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
-
       if (response.status === 200) {
-        navigate("/");
+        onLogin(true); // Update the logged-in status in Heading component
+        navigate("/"); // Redirect to home
       }
     } catch (error) {
       if (error.response) {
@@ -44,6 +43,8 @@ const Login = () => {
       } else {
         setError("Unable to reach server. Please check your connection.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,17 +72,11 @@ const Login = () => {
             className="form-control"
           />
         </div>
-        <button type="submit" className="btn btn-secondary">
-          {" "}
-          login
+        <button type="submit" className="btn btn-secondary" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
-
-      {error && (
-        <p style={{ color: "red" }} aria-live="assertive">
-          {error}
-        </p>
-      )}
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 };

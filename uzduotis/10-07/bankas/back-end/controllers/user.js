@@ -14,6 +14,26 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Route to check session status
+router.get("/session-status", (req, res) => {
+  if (req.session.userId) {
+    res.json({ isLoggedIn: true });
+  } else {
+    res.json({ isLoggedIn: false });
+  }
+});
+
+// Route to handle logout
+router.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send("Failed to logout.");
+    }
+    res.clearCookie("connect.sid"); // Assuming you're using the default session cookie name
+    res.sendStatus(200);
+  });
+});
+
 // POST to create a new user
 router.post("/create", async (req, res) => {
   try {
@@ -64,6 +84,30 @@ router.get("/:id", async (req, res) => {
     res.json(user);
   } catch (error) {
     res.status(500).json({ error: "Unable to reach server" });
+  }
+});
+
+// controllers/user.js
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password." });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid email or password." });
+    }
+
+    // Set session after successful login
+    req.session.userId = user._id; // Save user ID in session
+
+    res.status(200).json({ message: "Login successful" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error." });
   }
 });
 

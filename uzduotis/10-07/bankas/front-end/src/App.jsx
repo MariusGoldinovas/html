@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import Home from "./pages/home/Home";
 import Heading from "./components/heading/Heading";
 import Login from "./pages/login/Login";
@@ -10,14 +11,16 @@ import "./App.css";
 import Card from "./components/card/Card";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <BrowserRouter>
       <div className="container">
-        <Heading />
+        <Heading isLoggedIn={isLoggedIn} />
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login onLogin={setIsLoggedIn} />} />
         <Route path="/create" element={<CreateAccount />} />
         <Route path="/account" element={<Accounts />} />
         <Route path="/users" element={<Users />} />

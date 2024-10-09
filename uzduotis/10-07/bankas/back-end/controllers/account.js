@@ -6,8 +6,8 @@ import {
   generateLithuanianIBAN,
   generateRandomBankCode,
 } from "../helpers/iban.js";
-
 import bcrypt from "bcrypt";
+import { checkAuth } from "../middleware/auth.js";
 
 const router = Router();
 
