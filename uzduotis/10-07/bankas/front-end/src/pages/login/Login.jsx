@@ -7,12 +7,10 @@ const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
 
     try {
@@ -22,8 +20,8 @@ const Login = ({ onLogin }) => {
         { withCredentials: true }
       );
       if (response.status === 200) {
-        onLogin(true); // Update the logged-in status in Heading component
-        navigate("/"); // Redirect to home
+        onLogin(true);
+        navigate("/");
       }
     } catch (error) {
       if (error.response) {
@@ -43,8 +41,6 @@ const Login = ({ onLogin }) => {
       } else {
         setError("Unable to reach server. Please check your connection.");
       }
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -72,8 +68,8 @@ const Login = ({ onLogin }) => {
             className="form-control"
           />
         </div>
-        <button type="submit" className="btn btn-secondary" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
+        <button type="submit" className="btn btn-secondary">
+          Login
         </button>
       </form>
       {error && <p style={{ color: "red" }}>{error}</p>}

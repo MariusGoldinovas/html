@@ -8,9 +8,6 @@ import session from "express-session";
 
 const config = dotenv.config().parsed;
 
-const SESSION_SECRET = process.env.SESSION_SECRET || "your-secret";
-const PORT = process.env.PORT || 3000;
-
 try {
   await mongoose.connect(config.MONGO_URL);
 
@@ -18,11 +15,11 @@ try {
 
   const app = express();
 
-  app.set("trust proxy", 1); // Trust the first proxy
-  // Session configuration with MongoStore for MongoDB
+  app.set("trust proxy", 1);
+
   app.use(
     session({
-      secret: SESSION_SECRET,
+      secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
       cookie: {
@@ -51,5 +48,5 @@ try {
   app.listen(config.DEV_PORT);
 } catch (e) {
   console.log(e);
-  console.log("Tiesiog Bananas");
+  console.log("Error connecting to MongoDB(Bananas)");
 }

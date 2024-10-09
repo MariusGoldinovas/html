@@ -1,8 +1,19 @@
-import { Router } from "express";
+import Router from "express";
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
+import { checkAuth } from "../middleware/auth.js";
 
 const router = Router();
+
+// Route to check session status
+router.get("/session-status", checkAuth, (req, res) => {
+  console.log(req.session.userId);
+  if (req.session.userId) {
+    res.json({ isLoggedIn: true });
+  } else {
+    res.json({ isLoggedIn: false });
+  }
+});
 
 // GET all users
 router.get("/", async (req, res) => {
@@ -14,22 +25,12 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Route to check session status
-router.get("/session-status", (req, res) => {
-  if (req.session.userId) {
-    res.json({ isLoggedIn: true });
-  } else {
-    res.json({ isLoggedIn: false });
-  }
-});
-
-// Route to handle logout
 router.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).send("Failed to logout.");
     }
-    res.clearCookie("connect.sid"); // Assuming you're using the default session cookie name
+    res.clearCookie("connect.sid");
     res.sendStatus(200);
   });
 });
@@ -87,6 +88,20 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const deleteUser = await User.findByIdAndDelete(req.params.id);
+    if (!deleteUser) {
+      return res.status(404).json({ error: "User not found." });
+    }
+    res.json({
+      message: "User successfully deleted",
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Unable to delete User." });
+  }
+});
+
 // controllers/user.js
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -102,8 +117,7 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password." });
     }
 
-    // Set session after successful login
-    req.session.userId = user._id; // Save user ID in session
+    req.session.userId = user._id;
 
     res.status(200).json({ message: "Login successful" });
   } catch (error) {

@@ -130,7 +130,7 @@ const Accounts = () => {
           </tbody>
         </table>
       ) : (
-        <p>No accounts available</p>
+        <p>{message ? message.data : "No accounts available"}</p>
       )}
     </div>
   );

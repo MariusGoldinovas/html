@@ -4,11 +4,9 @@ export function calculateGenderAndChecksum(year, gender, code) {
     male: 1,
   };
 
-  // Calculate the gender & birth century value
   const calculateG = (year, gender) =>
     Math.floor(year / 100) * 2 - 34 - Gender[gender.toLowerCase()];
 
-  // Calculate the NIN checksum
   const checksum = (code) => {
     let b = 1,
       c = 3,
@@ -39,7 +37,6 @@ export function calculateGenderAndChecksum(year, gender, code) {
     }
   };
 
-  // Perform both calculations
   const genderCenturyValue = calculateG(year, gender);
   const calculatedChecksum = checksum(code);
 

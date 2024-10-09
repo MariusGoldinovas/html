@@ -1,42 +1,14 @@
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../../assets/logo_trans.png";
-import "./Heading.css";
+import "./Header.css";
 
-const Heading = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track if user is logged in
-  const [loading, setLoading] = useState(true); // Track the loading state for session check
+const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate();
 
-  // Check session status from the server
-  const checkSession = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:3000/api/user/session-status",
-        { withCredentials: true }
-      );
-      if (response.data.isLoggedIn) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    } catch (error) {
-      console.error("Error checking session:", error);
-      setIsLoggedIn(false); // Default to not logged in if there's an error
-    } finally {
-      setLoading(false); // Stop loading after checking session
-    }
-  };
-
-  // Handle logout by calling the backend logout route
   const handleLogout = async () => {
     try {
-      await axios.post(
-        "http://localhost:3000/api/user/logout",
-        {},
-        { withCredentials: true }
-      );
+      await axios.post("http://localhost:3000/api/user/logout");
       setIsLoggedIn(false);
       navigate("/login");
     } catch (error) {
@@ -44,19 +16,10 @@ const Heading = () => {
     }
   };
 
-  // Run the checkSession function on component mount
-  useEffect(() => {
-    checkSession();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>; // Optional: Show a loading state while checking session
-  }
-
   return (
-    <div className=" m-4 d-flex justify-content-between align-items-center">
+    <div className="m-4 d-flex justify-content-between align-items-center">
       <Link to="/">
-        <img src={logo} style={{ height: 75 }} alt="" />
+        <img src={logo} style={{ height: 75 }} alt="Logo" />
       </Link>
       <div className="d-flex justify-content-center gap-5">
         <nav className="navbar navbar-expand-lg navbar-light">
@@ -101,4 +64,4 @@ const Heading = () => {
   );
 };
 
-export default Heading;
+export default Header;

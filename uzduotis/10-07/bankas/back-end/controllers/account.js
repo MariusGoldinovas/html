@@ -11,11 +11,13 @@ import { checkAuth } from "../middleware/auth.js";
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+//all accounts
+router.get("/", checkAuth, async (req, res) => {
   try {
     const accounts = await Account.find();
     res.json(accounts);
   } catch (error) {
+    console.error("Error fetching accounts:", error);
     res.status(500).json({ error: "Unable to reach server" });
   }
 });
@@ -32,40 +34,40 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// POST to create a new account with a random IBAN for Lithuania
-router.post("/create", upload.single("idPhoto"), async (req, res) => {
-  try {
-    // Attach uploaded idPhoto filename to req.body
-    req.body.idPhoto = req.file ? req.file.filename : null;
+//create account
+router.post(
+  "/create",
+  checkAuth,
+  upload.single("idPhoto"),
+  async (req, res) => {
+    try {
+      req.body.idPhoto = req.file ? req.file.filename : null;
+      req.body.user = req.session.isLoggedIn;
 
-    // Generate a random 5-digit bank code
-    const bankCode = generateRandomBankCode(); // Ensure the bank code is generated
+      const bankCode = generateRandomBankCode();
 
-    // Generate a random 11-digit account number
-    const accountNumber = generateRandomAccountNumber();
+      const accountNumber = generateRandomAccountNumber();
 
-    // Generate a valid IBAN for Lithuania (LT)
-    const iban = generateLithuanianIBAN(bankCode, accountNumber); // Generate the IBAN
+      const iban = generateLithuanianIBAN(bankCode, accountNumber);
 
-    // Add generated IBAN and account number to req.body
-    req.body.iban = iban;
-    req.body.accountNumber = accountNumber;
-    req.body.bankCode = bankCode; // Ensure bankCode is added to the account
+      req.body.iban = iban;
+      req.body.accountNumber = accountNumber;
+      req.body.bankCode = bankCode;
 
-    // Create the account using the updated request body
-    const account = await Account.create(req.body);
+      const account = await Account.create(req.body);
 
-    // Send success response with all fields, including IBAN and bankCode
-    res.status(201).json({
-      message: "Account created successfully",
-      data: account,
-    });
-  } catch (error) {
-    console.error("Error creating account:", error);
-    res.status(500).json({ message: "Internal server error" });
+      res.status(201).json({
+        message: "Account created successfully",
+        data: account,
+      });
+    } catch (error) {
+      console.error("Error creating account:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
   }
-});
+);
 
+//delete account
 router.delete("/:id", async (req, res) => {
   try {
     const deletedAccount = await Account.findByIdAndDelete(req.params.id);
@@ -80,12 +82,13 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+//update account
 router.put("/:id", async (req, res) => {
   try {
     const account = await Account.findByIdAndUpdate(
       req.params.id,
-      { $set: req.body }, // Update the account with the new data sent in req.body
-      { new: true, runValidators: true } // Return the updated account
+      { $set: req.body },
+      { new: true, runValidators: true }
     );
 
     if (!account) {
@@ -102,6 +105,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+//remove money from account
 router.put("/moneyRemove/:id", async (req, res) => {
   try {
     const { amount } = req.body;
@@ -114,7 +118,7 @@ router.put("/moneyRemove/:id", async (req, res) => {
       return res.status(400).json({ error: "Insufficient funds." });
     }
 
-    account.money -= amount; // Assuming 'money' is the field for account balance
+    account.money -= amount;
     await account.save();
 
     res.json({
@@ -136,13 +140,12 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid email" });
     }
 
-    const match = await bcrypt.compare(password, account.password); // Corrected variable reference
+    const match = await bcrypt.compare(password, account.password);
     if (!match) {
       return res.status(401).json({ message: "Invalid password" });
     }
 
-    // Assuming you have session middleware configured
-    req.session.userId = account._id; // Corrected variable reference
+    req.session.user = account._id;
 
     res.json({ message: "Logged in successfully", userId: account._id });
   } catch (error) {

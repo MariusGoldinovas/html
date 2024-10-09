@@ -1,6 +1,7 @@
 export const checkAuth = (req, res, next) => {
-  console.log(req.session);
-  if (req.session.user) return next();
+  if (req.session.userId) {
+    return next();
+  }
 
-  res.status(401).send("Unauthenticated user");
+  res.status(401).json({ error: "Unauthenticated user" });
 };
