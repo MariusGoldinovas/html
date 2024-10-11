@@ -22,6 +22,7 @@ export default mongoose.model(
       },
       idPhoto: {
         type: String,
+        required: true,
       },
       iban: {
         type: String,

@@ -1,6 +1,5 @@
 import moment from "moment";
 
-// Generate a random date between a start and end date
 const randomDate = (start, end) => {
   const endTime = +moment(end);
   const randomNumber = (to, from = 0) =>
@@ -16,21 +15,17 @@ const randomDate = (start, end) => {
   return moment(randomNumber(endTime));
 };
 
-// Generate a person's control number
 const getPersonControlNumber = (value) => {
   const numbersArray = value.split("").map((i) => Number(i));
 
-  // First check
   const firstControlNumber = getControlNumber(numbersArray);
 
   if (firstControlNumber < 10) {
     return firstControlNumber;
   }
 
-  // Second check - only process if first control number is 10
   let secondControlNumber = getControlNumber(numbersArray, 3);
 
-  // Only applied if control number is 10
   if (secondControlNumber === 10) {
     secondControlNumber = 0;
   }
@@ -38,13 +33,11 @@ const getPersonControlNumber = (value) => {
   return secondControlNumber;
 };
 
-// Validate the input code (ID number)
 export function validate(code) {
   if (!code) {
     return resultHandler(VALIDATION_ERRORS.EMPTY);
   }
 
-  // Adjust regex to properly handle valid code format
   if (!/^[1-6|9][0-9]{10}$/.test(code)) {
     return resultHandler(VALIDATION_ERRORS.INVALID);
   }
@@ -69,7 +62,6 @@ export function validate(code) {
 
   const monthDayException = !Number(month) || !Number(day);
 
-  // Exceptions for first number (9) and/or invalid month/day
   if (!year || monthDayException) {
     return resultHandler(VALIDATION_ERRORS.INVALID_DATE);
   }
@@ -91,7 +83,6 @@ export function validate(code) {
   return resultHandler(VALIDATION_ERRORS.INVALID_CONTROL_NUMBER);
 }
 
-// Generate a random valid code (ID number)
 export function generate() {
   const randDate = randomDate("1900-01-01", moment());
 
@@ -111,7 +102,6 @@ export function generate() {
   return `${withoutControlNumber}${generatedControlNumber}`;
 }
 
-// Generate a control number from the given numbers and multiplier
 export function getControlNumber(numbers, firstMultiplier = 1) {
   return (
     numbers
@@ -120,7 +110,6 @@ export function getControlNumber(numbers, firstMultiplier = 1) {
   );
 }
 
-// Handle result and return validation results
 export function resultHandler(errorType = "", isException = false) {
   if (!errorType) {
     return { isValid: true, isException };
@@ -132,17 +121,15 @@ export function resultHandler(errorType = "", isException = false) {
   };
 }
 
-// Generate a random number as a string with the specified length
 export function randomNumberToString(length = 3) {
   const maxNumber = Math.pow(10, length);
   const randNumber = Math.floor(Math.random() * maxNumber).toString();
   return randNumber.padStart(length, "0");
 }
 
-// Define validation error messages
 export const VALIDATION_ERRORS = {
-  EMPTY: "EMPTY",
+  EMPTY: "No ID number provided",
   INVALID: "Invalid ID number format",
-  INVALID_CONTROL_NUMBER: "INVALID_CONTROL_NUMBER",
-  INVALID_DATE: "INVALID_DATE",
+  INVALID_CONTROL_NUMBER: "Gender is invalid",
+  INVALID_DATE: "Date is invalid",
 };

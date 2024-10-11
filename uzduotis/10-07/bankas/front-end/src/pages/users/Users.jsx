@@ -1,90 +1,69 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../utils/config";
+import axios from "axios";
 
 const Users = () => {
-  const [data, setData] = useState([]);
+  const [users, setUsers] = useState([]);
   const [message, setMessage] = useState(null);
-  const navigate = useNavigate(); // useNavigate hook for navigation
-  const view = "users"; // Assuming view is set to 'users' since this is the Users component
+  const navigate = useNavigate();
 
-  // Function to fetch users
-  const fetchUsers = () => {
-    axios
-      .get("http://localhost:3000/api/user/")
-      .then((resp) => {
-        // Sort data by name alphabetically (case-insensitive)
-        const sortedData = resp.data.sort((a, b) =>
-          a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
-        );
-        setData(sortedData); // Save sorted data to state
-      })
-      .catch((err) => {
-        console.error("Error fetching users:", err);
-        setMessage({
-          data: "Failed to load users",
-          status: "danger",
-        });
-      });
-  };
-
-  // Function to handle user editing
-  const handleEdit = (id) => {
-    navigate(`/edit-user/${id}`); // Navigate to the edit page for the selected user
-  };
-
-  // Function to handle user removal
-  const handleRemove = (id) => {
-    const url = `http://localhost:3000/api/user/${id}`; // URL to delete the user
-
-    axios
-      .delete(url)
-      .then((resp) => {
-        setMessage({
-          data: resp.data.message,
-          status: "success",
-        });
-        fetchUsers(); // Re-fetch the users after deletion
-      })
-      .catch((err) => {
-        setMessage({
-          data: err.response?.data?.error || "An error occurred",
-          status: "danger",
-        });
-      });
-  };
-
-  // Fetch users on component mount
   useEffect(() => {
-    fetchUsers();
+    axios
+      .get(`${BASE_URL}/api/user/`)
+      .then((response) => setUsers(response.data))
+      .catch(() =>
+        setMessage({ data: "Failed to load users", status: "danger" })
+      );
   }, []);
 
+  const handleRemove = (id) => {
+    axios
+      .delete(`${BASE_URL}/api/user/${id}`)
+      .then((response) => {
+        setMessage({ data: response.data.message, status: "success" });
+        setUsers(users.filter((user) => user._id !== id));
+      })
+      .catch(() =>
+        setMessage({ data: "Failed to delete user", status: "danger" })
+      );
+  };
+
   return (
-    <div className="container mt-4">
-      <h1>Users List</h1>
+    <div className="container mt-4 w-50">
+      <div className="top d-flex justify-content-between">
+        <h1>Users List</h1>
+        <button onClick={() => navigate("/users/new")} className="btn">
+          Add User
+        </button>
+      </div>
       {message && (
         <div className={`alert alert-${message.status}`}>{message.data}</div>
       )}
 
-      {data.length > 0 ? (
+      {users.length > 0 ? (
         <table className="table table-bordered">
           <thead>
             <tr>
               <th>Name</th>
               <th>Email</th>
-              <th>Created At</th>
+              <th>Created </th>
+              <th>Updated </th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((user) => (
+            {users.map((user) => (
               <tr key={user._id}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                <td>{new Date(user.updatedAt).toLocaleDateString()}</td>
                 <td>
                   <button
-                    onClick={() => handleEdit(user._id)}
+                    onClick={() =>
+                      navigate(`/users/${user._id}`, { state: { user } })
+                    }
                     className="btn btn-link text-primary me-3"
                   >
                     <i className="bi bi-pencil-square"></i>

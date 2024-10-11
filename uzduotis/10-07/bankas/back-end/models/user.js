@@ -1,22 +1,28 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema } from "mongoose";
 
-export default mongoose.model('User', new Schema({
-    name: {
+export default mongoose.model(
+  "User",
+  new Schema(
+    {
+      name: {
         type: String,
-        required: true, 
-        minLength: 3, 
-        maxLength: 20 
-    },
-    email: {
+        required: true,
+        minLength: 3,
+        maxLength: 20,
+      },
+      email: {
         type: String,
-        unique: true, 
-        // required: true,
-        // match: [/^\S+@\S+\.\S+$/, "Įveskite galiojantį el. pašto adresą"] 
-    },
-    password: {
+        unique: true,
+        required: true,
+        match: [/^\S+@\S+\.\S+$/],
+      },
+      password: {
         type: String,
-        required: true
+        required: true,
+      },
     },
-}, {
-    timestamps: true
-}));
+    {
+      timestamps: true,
+    }
+  )
+);

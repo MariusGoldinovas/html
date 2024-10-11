@@ -1,16 +1,22 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import logo from "../../assets/logo_trans.png";
 import "./Header.css";
+import { BASE_URL } from "../../utils/config";
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path) => {
+    return location.pathname === path ? "nav-link active" : "nav-link";
+  };
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:3000/api/user/logout");
+      await axios.post(BASE_URL + "/api/user/logout");
       setIsLoggedIn(false);
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -28,17 +34,17 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
               {isLoggedIn && (
                 <>
                   <li className="nav-item">
-                    <Link to="/users" className="nav-link">
+                    <Link to="/users" className={isActive("/users")}>
                       My Profile
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/account" className="nav-link">
+                    <Link to="/account" className={isActive("/account")}>
                       Accounts
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/create" className="nav-link">
+                    <Link to="/create" className={isActive("/create")}>
                       Create Account
                     </Link>
                   </li>
@@ -56,7 +62,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
           </button>
         ) : (
           <Link to="/login">
-            <button className="btn btn-light">Login</button>
+            <button className="btn btn-org">Login</button>
           </Link>
         )}
       </div>

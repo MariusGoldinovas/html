@@ -4,16 +4,18 @@ import { useParams } from "react-router-dom";
 import Card from "../../components/card/Card";
 
 const MoneyAddRemove = ({ action }) => {
+  const [account, setAccount] = useState({
+    name: "",
+    surname: "",
+    balance: 0,
+    accountNumber: "",
+    iban: "",
+  });
+
   const [amount, setAmount] = useState("");
-  const [balance, setBalance] = useState(0);
-  const [name, setName] = useState(""); // For account holder's name
-  const [surname, setSurname] = useState(""); // For account holder's surname
-  const [accountNumber, setAccountNumber] = useState(""); // For account number
-  const [iban, setIban] = useState(""); // For IBAN
   const [message, setMessage] = useState(null);
   const { id } = useParams();
 
-  // Fetch account details including balance, name, surname, and account number
   const fetchAccountDetails = async () => {
     try {
       const response = await axios.get(
@@ -21,12 +23,13 @@ const MoneyAddRemove = ({ action }) => {
       );
       const accountData = response.data;
 
-      // Set state with account details
-      setBalance(accountData.money);
-      setName(accountData.name);
-      setSurname(accountData.surname);
-      setAccountNumber(accountData.accountNumber);
-      setIban(accountData.iban);
+      setAccount({
+        name: accountData.name,
+        surname: accountData.surname,
+        balance: accountData.money,
+        accountNumber: accountData.accountNumber,
+        iban: accountData.iban,
+      });
     } catch (error) {
       console.error("Error fetching account details:", error);
     }
@@ -46,19 +49,19 @@ const MoneyAddRemove = ({ action }) => {
       return;
     }
 
-    let updatedBalance = balance;
+    let updatedBalance = account.balance;
 
     if (action === "add") {
-      updatedBalance = balance + newAmount;
+      updatedBalance = account.balance + newAmount;
     } else if (action === "remove") {
-      if (newAmount > balance) {
+      if (newAmount > account.balance) {
         setMessage({
           data: "Cannot remove more than the current balance.",
           status: "danger",
         });
         return;
       }
-      updatedBalance = balance - newAmount;
+      updatedBalance = account.balance - newAmount;
     }
 
     try {
@@ -74,7 +77,8 @@ const MoneyAddRemove = ({ action }) => {
         status: "success",
       });
 
-      fetchAccountDetails(); // Refresh account details after update
+      fetchAccountDetails();
+      setAmount("");
     } catch (error) {
       console.error("Error updating balance:", error);
       setMessage({
@@ -84,40 +88,95 @@ const MoneyAddRemove = ({ action }) => {
     }
   };
 
-  return (
-    <div className="container">
-      <Card name={name} surname={surname} accountNumber={iban} />
-      <h1>Your balance: {balance} EUR</h1>
-      {message && (
-        <div
-          style={{ width: "30%" }}
-          className={`alert alert-${message.status}`}
-        >
-          {message.data}
-        </div>
-      )}
+  const handleSetAmount = (value) => {
+    const currentAmount = parseFloat(amount) || 0;
+    setAmount((currentAmount + value).toString());
+  };
 
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="amount" className="form-label">
-            {action === "add" ? "Add Money:" : "Remove Money:"}
-          </label>
-          <input
-            style={{ width: "30%" }}
-            type="number"
-            id="amount"
-            className="form-control"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder={`Enter amount to ${action}`}
-            min="0"
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          {action === "add" ? "Add Money" : "Remove Money"}
-        </button>
-      </form>
+  const handleSetAllAmount = () => {
+    setAmount(account.balance.toString());
+  };
+
+  return (
+    <div className="container d-flex gap-5 justify-content-center align-items-center">
+      <Card
+        name={account.name}
+        surname={account.surname}
+        accountNumber={account.iban}
+      />
+      <div className="balance" style={{ height: 300 }}>
+        <h1>Your balance: {account.balance} EUR</h1>
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="amount" className="form-label">
+              {action === "add" ? "Add Money:" : "Remove Money:"}
+            </label>
+            <div className="d-flex gap-2">
+              <input
+                style={{ width: "60%" }}
+                type="number"
+                id="amount"
+                className="form-control"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder={`Enter amount to ${action}`}
+                min="0"
+                required
+              />
+
+              {action === "remove" && (
+                <button
+                  type="button"
+                  className="btn btn-org"
+                  onClick={handleSetAllAmount}
+                >
+                  All
+                </button>
+              )}
+            </div>
+          </div>
+
+          {action === "add" && (
+            <div className="d-flex gap-2 mb-3">
+              <button
+                type="button"
+                className="btn btn-outline-org"
+                onClick={() => handleSetAmount(50)}
+              >
+                50 EUR
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline-org"
+                onClick={() => handleSetAmount(100)}
+              >
+                100 EUR
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline-org"
+                onClick={() => handleSetAmount(500)}
+              >
+                500 EUR
+              </button>
+            </div>
+          )}
+
+          <button type="submit" className="btn btn-org">
+            {action === "add" ? "Add Money" : "Take out money"}
+          </button>
+        </form>
+
+        {message && (
+          <div
+            style={{ width: "100%" }}
+            className={`alert alert-${message.status} mt-5`}
+          >
+            {message.data}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

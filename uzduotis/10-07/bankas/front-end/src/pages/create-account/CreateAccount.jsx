@@ -51,7 +51,7 @@ const CreateAccount = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container w-50">
       <h1>Add new account</h1>
       {message && (
         <div className={"alert alert-" + message.status}>{message.data}</div>
@@ -71,6 +71,7 @@ const CreateAccount = () => {
           <label htmlFor="surname">Enter surname</label>
           <input
             name="surname"
+            type="text"
             placeholder="Your surname"
             className="form-control"
           />
@@ -85,16 +86,17 @@ const CreateAccount = () => {
             <div className="col-md-6">
               <input
                 name="idNumber"
+                type="number"
                 value={idNumber}
                 onChange={(e) => setIdNumber(e.target.value)}
                 placeholder="Enter 11 numbers"
                 className="form-control"
               />
             </div>
-            <div className="col-md-3">
+            <div className="col-md-2">
               <button
                 type="button"
-                className="btn btn-primary w-100"
+                className="btn btn-org w-80"
                 onClick={handleGenerate}
               >
                 Generate ID
@@ -103,7 +105,7 @@ const CreateAccount = () => {
             <div className="col-md-3">
               <button
                 type="button"
-                className="btn btn-secondary w-100"
+                className="btn btn-org w-80"
                 onClick={handleValidate}
               >
                 Validate ID
@@ -122,7 +124,9 @@ const CreateAccount = () => {
             className="form-control"
           />
         </div>
-        <button className="btn btn-primary">Submit</button>
+        <button style={{ width: 200 }} className="btn btn-org ">
+          Submit
+        </button>
       </form>
     </div>
   );

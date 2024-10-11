@@ -46,7 +46,7 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="container mt-5 text-center" style={{ width: 500 }}>
-      <h1 className="mb-5">Login</h1>
+      <h1 className="mb-5"></h1>
       <form onSubmit={handleLogin}>
         <div className="mb-3">
           <input
@@ -68,7 +68,7 @@ const Login = ({ onLogin }) => {
             className="form-control"
           />
         </div>
-        <button type="submit" className="btn btn-secondary">
+        <button type="submit" className="btn btn-org">
           Login
         </button>
       </form>

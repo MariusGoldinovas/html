@@ -70,8 +70,8 @@ const Accounts = () => {
       )}
 
       {data.length > 0 ? (
-        <table className="table table-bordered">
-          <thead>
+        <table className="table table-bordered table-hover">
+          <thead className="text-center">
             <tr>
               <th>Name</th>
               <th>Surname</th>
@@ -82,6 +82,7 @@ const Accounts = () => {
               <th>ID Photo</th>
               <th>Balance Eur</th>
               <th>Account opened</th>
+              <th>Account updated</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -103,27 +104,34 @@ const Accounts = () => {
                 </td>
                 <td>{account.money} EUR</td>
                 <td>{new Date(account.createdAt).toLocaleString()}</td>
+                <td>{new Date(account.updatedAt).toLocaleString()}</td>
                 <td>
-                  <i
-                    className="bi bi-trash text-danger me-2"
+                  <button
+                    className="btn"
                     style={{ cursor: "pointer" }}
                     onClick={() =>
                       handleRemoveAccount(account._id, account.money)
                     }
                     title="Remove account"
-                  ></i>
-                  <i
-                    className="bi bi-plus-circle text-success me-2"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                  <button
+                    className="btn"
                     style={{ cursor: "pointer" }}
                     onClick={() => handleAddMoney(account._id)}
                     title="Add money"
-                  ></i>
-                  <i
-                    className="bi bi-dash-circle text-warning"
+                  >
+                    <i class="bi bi-plus-circle"></i>
+                  </button>
+                  <button
+                    className="btn"
                     style={{ cursor: "pointer" }}
                     onClick={() => handleRemoveMoney(account._id)}
                     title="Remove money"
-                  ></i>
+                  >
+                    <i class="bi bi-dash-circle"></i>
+                  </button>
                 </td>
               </tr>
             ))}

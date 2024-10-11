@@ -16,7 +16,7 @@ router.get("/session-status", checkAuth, (req, res) => {
 });
 
 // GET all users
-router.get("/", async (req, res) => {
+router.get("/", checkAuth, async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -36,7 +36,7 @@ router.post("/logout", (req, res) => {
 });
 
 // POST to create a new user
-router.post("/create", async (req, res) => {
+router.post("/create", checkAuth, async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -65,10 +65,16 @@ router.post("/create", async (req, res) => {
       password: hashedPassword,
     });
 
-    await newUser.save();
-    res
-      .status(201)
-      .json({ message: "User created successfully", data: newUser });
+    // Try saving the user to the database
+    try {
+      await newUser.save();
+      res
+        .status(201)
+        .json({ message: "User created successfully", data: newUser });
+    } catch (saveError) {
+      console.error("Error saving user:", saveError);
+      res.status(500).json({ message: "Error saving user to the database" });
+    }
   } catch (error) {
     console.error("Error creating user:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -76,7 +82,7 @@ router.post("/create", async (req, res) => {
 });
 
 // GET a user by ID
-router.get("/:id", async (req, res) => {
+router.get("/:id", checkAuth, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -88,7 +94,32 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+//update
+router.patch("/:id", checkAuth, async (req, res) => {
+  try {
+    const { password, ...otherData } = req.body;
+
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      otherData.password = hashedPassword;
+    }
+
+    const user = await User.findByIdAndUpdate(req.params.id, otherData, {
+      new: true,
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json({ message: "User updated successfully", user });
+  } catch (error) {
+    res.status(500).json({ error: "Unable to reach server" });
+  }
+});
+
+router.delete("/:id", checkAuth, async (req, res) => {
   try {
     const deleteUser = await User.findByIdAndDelete(req.params.id);
     if (!deleteUser) {
