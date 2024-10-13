@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../utils/config";
 
 const Login = ({ onLogin }) => {
   // onLogin will be passed from the parent component
@@ -15,7 +16,7 @@ const Login = ({ onLogin }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/login",
+        `${BASE_URL}/api/user/login`,
         { email, password },
         { withCredentials: true }
       );
