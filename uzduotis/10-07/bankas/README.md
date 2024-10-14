@@ -10,9 +10,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 The things you need before installing the software.
 
-* You need this
-* And you need this
-* Oh, and don't forget this
+- You need this
+- And you need this
+- Oh, and don't forget this
 
 ### Installation
 
@@ -21,7 +21,7 @@ A step by step guide that will tell you how to get the development environment u
 ```
 $ First step
 $ Another step
-$ Final step
+$ Final ste
 ```
 
 ## Usage
@@ -40,20 +40,20 @@ Additional notes on how to deploy this on a live or release system. Explaining t
 
 ### Server
 
-* Live:
-* Release:
-* Development:
+- Live:
+- Release:
+- Development:
 
 ### Branches
 
-* Master:
-* Feature:
-* Bugfix:
-* etc...
+- Master:
+- Feature:
+- Bugfix:
+- etc...
 
 ## Additional Documentation and Acknowledgments
 
-* Project folder on server:
-* Confluence link:
-* Asana board:
-* etc...
+- Project folder on server:
+- Confluence link:
+- Asana board:
+- etc...
