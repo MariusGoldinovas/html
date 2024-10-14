@@ -1,6 +1,6 @@
-# Project Title
+# Bank App
 
-A short description about the project and/or client.
+Bank App to managers
 
 ## Getting Started
 
@@ -20,8 +20,8 @@ A step by step guide that will tell you how to get the development environment u
 
 ```
 $ First step
-$ Another step
-$ Final ste
+$ Another ste
+$ Final step
 ```
 
 ## Usage
