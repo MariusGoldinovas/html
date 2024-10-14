@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
 import Card from "../../components/card/Card";
 import { BASE_URL } from "../../utils/config";
 
@@ -16,6 +16,7 @@ const MoneyAddRemove = ({ action }) => {
   const [amount, setAmount] = useState("");
   const [message, setMessage] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const fetchAccountDetails = async () => {
     try {
@@ -36,7 +37,7 @@ const MoneyAddRemove = ({ action }) => {
 
   useEffect(() => {
     fetchAccountDetails();
-  }, []);
+  }, [id]); // Ensure that useEffect depends on id
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,6 +59,9 @@ const MoneyAddRemove = ({ action }) => {
           data: "Cannot remove more than the current balance.",
           status: "danger",
         });
+        setTimeout(() => {
+          navigate("/account"); // Navigate back after 3 seconds
+        }, 3000);
         return;
       }
       updatedBalance = account.balance - newAmount;
@@ -75,12 +79,20 @@ const MoneyAddRemove = ({ action }) => {
 
       fetchAccountDetails();
       setAmount("");
+
+      setTimeout(() => {
+        navigate("/account");
+      }, 2000);
     } catch (error) {
       console.error("Error updating balance:", error);
       setMessage({
         data: "Failed to update balance.",
         status: "danger",
       });
+
+      setTimeout(() => {
+        navigate("/account");
+      }, 2000);
     }
   };
 
@@ -128,7 +140,7 @@ const MoneyAddRemove = ({ action }) => {
                   {action === "remove" && (
                     <button
                       type="button"
-                      className="btn btn-warning"
+                      className="btn btn-danger"
                       onClick={handleSetAllAmount}
                     >
                       All

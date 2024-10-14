@@ -74,15 +74,15 @@ const Accounts = () => {
             <thead className="text-center">
               <tr>
                 <th>Name</th>
-                <th>Surname</th>
+                <th>Last Name</th>
                 <th>Account Number</th>
                 <th>Bank Code</th>
                 <th>IBAN</th>
                 <th>ID Number</th>
                 <th>ID Photo</th>
-                <th>Balance Eur</th>
-                <th>Account opened</th>
-                <th>Account updated</th>
+                <th>Balance</th>
+                <th>Account Opened</th>
+                <th>Last Update</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -114,7 +114,7 @@ const Accounts = () => {
                       }
                       title="Remove account"
                     >
-                      <i className="bi bi-trash"></i>
+                      <i className="bi bi-trash"> Remove Acc</i>
                     </button>
                     <button
                       className="btn"
@@ -122,7 +122,7 @@ const Accounts = () => {
                       onClick={() => handleAddMoney(account._id)}
                       title="Add money"
                     >
-                      <i className="bi bi-plus-circle"></i>
+                      <i className="bi bi-plus-circle"> Add Eur</i>
                     </button>
                     <button
                       className="btn"
@@ -130,7 +130,7 @@ const Accounts = () => {
                       onClick={() => handleRemoveMoney(account._id)}
                       title="Remove money"
                     >
-                      <i className="bi bi-dash-circle"></i>
+                      <i className="bi bi-dash-circle"> Take out Eur </i>
                     </button>
                   </td>
                 </tr>

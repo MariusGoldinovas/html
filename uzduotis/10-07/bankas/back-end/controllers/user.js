@@ -25,6 +25,7 @@ router.get("/", checkAuth, async (req, res) => {
   }
 });
 
+// Logout route
 router.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -35,19 +36,17 @@ router.post("/logout", (req, res) => {
   });
 });
 
-// POST to create a new user
+// Create a new user
 router.post("/create", checkAuth, async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Ensure all fields are present
     if (!name || !email || !password) {
       return res
         .status(400)
         .json({ error: "All fields are required: name, email, password" });
     }
 
-    // Check if the user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res
@@ -55,17 +54,14 @@ router.post("/create", checkAuth, async (req, res) => {
         .json({ error: "User with this email already exists" });
     }
 
-    // Hash the password (salt rounds set to 10)
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create a new user with the hashed password
     const newUser = new User({
       name,
       email,
       password: hashedPassword,
     });
 
-    // Try saving the user to the database
     try {
       await newUser.save();
       res
@@ -81,7 +77,7 @@ router.post("/create", checkAuth, async (req, res) => {
   }
 });
 
-// GET a user by ID
+//Find user by ID
 router.get("/:id", checkAuth, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -94,7 +90,7 @@ router.get("/:id", checkAuth, async (req, res) => {
   }
 });
 
-//update
+//Update user
 router.patch("/:id", checkAuth, async (req, res) => {
   try {
     const { password, ...otherData } = req.body;
@@ -119,6 +115,7 @@ router.patch("/:id", checkAuth, async (req, res) => {
   }
 });
 
+//Delete user
 router.delete("/:id", checkAuth, async (req, res) => {
   try {
     const deleteUser = await User.findByIdAndDelete(req.params.id);
@@ -133,7 +130,7 @@ router.delete("/:id", checkAuth, async (req, res) => {
   }
 });
 
-// controllers/user.js
+// Login route
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 

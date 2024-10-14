@@ -6,12 +6,11 @@ import {
   generateLithuanianIBAN,
   generateRandomBankCode,
 } from "../helpers/iban.js";
-import bcrypt from "bcrypt";
 import { checkAuth } from "../middleware/auth.js";
 
 const router = Router();
 
-//all accounts
+// Get all accounts
 router.get("/", checkAuth, async (req, res) => {
   try {
     const accounts = await Account.find();
@@ -22,6 +21,7 @@ router.get("/", checkAuth, async (req, res) => {
   }
 });
 
+// Get account by id
 router.get("/:id", async (req, res) => {
   try {
     const account = await Account.findById(req.params.id);
@@ -34,7 +34,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//create account
+//Create account
 router.post(
   "/create",
   checkAuth,
@@ -67,7 +67,7 @@ router.post(
   }
 );
 
-//delete account
+//Delete account
 router.delete("/:id", async (req, res) => {
   try {
     const deletedAccount = await Account.findByIdAndDelete(req.params.id);
@@ -82,7 +82,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-//update account
+//Update account
 router.put("/:id", async (req, res) => {
   try {
     const account = await Account.findByIdAndUpdate(
@@ -102,54 +102,6 @@ router.put("/:id", async (req, res) => {
   } catch (error) {
     console.error("Error updating account:", error);
     res.status(500).json({ error: "Unable to update account." });
-  }
-});
-
-//remove money from account
-router.put("/moneyRemove/:id", async (req, res) => {
-  try {
-    const { amount } = req.body;
-    const account = await Account.findById(req.params.id);
-    if (!account) {
-      return res.status(404).json({ error: "Account not found." });
-    }
-
-    if (account.money < amount) {
-      return res.status(400).json({ error: "Insufficient funds." });
-    }
-
-    account.money -= amount;
-    await account.save();
-
-    res.json({
-      message: `Successfully removed ${amount} from account.`,
-      updatedAccount: account,
-    });
-  } catch (error) {
-    res.status(500).json({ error: "Unable to remove money from account." });
-  }
-});
-
-// Login
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const account = await Account.findOne({ email });
-    if (!account) {
-      return res.status(401).json({ message: "Invalid email" });
-    }
-
-    const match = await bcrypt.compare(password, account.password);
-    if (!match) {
-      return res.status(401).json({ message: "Invalid password" });
-    }
-
-    req.session.user = account._id;
-
-    res.json({ message: "Logged in successfully", userId: account._id });
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
   }
 });
 

@@ -5,6 +5,7 @@ import user from "./controllers/user.js";
 import cors from "cors";
 import dotenv from "dotenv";
 import session from "express-session";
+import { createDefaultUser } from "./helpers/defaultUser.js";
 
 const config = dotenv.config().parsed;
 
@@ -44,6 +45,8 @@ try {
 
   app.use("/api/account", account);
   app.use("/api/user", user);
+
+  await createDefaultUser();
 
   app.listen(config.DEV_PORT);
 } catch (e) {
