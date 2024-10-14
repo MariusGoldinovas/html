@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
-import Card from "../../components/card/Card";
+import { useParams, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../utils/config";
+import Card from "../../components/card/Card";
+import axios from "axios";
 
 const MoneyAddRemove = ({ action }) => {
   const [account, setAccount] = useState({
@@ -16,7 +16,7 @@ const MoneyAddRemove = ({ action }) => {
   const [amount, setAmount] = useState("");
   const [message, setMessage] = useState(null);
   const { id } = useParams();
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const fetchAccountDetails = async () => {
     try {
@@ -37,7 +37,7 @@ const MoneyAddRemove = ({ action }) => {
 
   useEffect(() => {
     fetchAccountDetails();
-  }, [id]); // Ensure that useEffect depends on id
+  }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,7 +60,7 @@ const MoneyAddRemove = ({ action }) => {
           status: "danger",
         });
         setTimeout(() => {
-          navigate("/account"); // Navigate back after 3 seconds
+          navigate("/account");
         }, 3000);
         return;
       }

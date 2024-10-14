@@ -1,8 +1,8 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
 import logo from "../../assets/logo_trans.png";
-import "./Header.css";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { BASE_URL } from "../../utils/config";
+import axios from "axios";
+import "./Header.css";
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
 
   const handleLogout = async () => {
     try {
-      await axios.post(BASE_URL + "/api/user/logout");
+      await axios.post(`${BASE_URL}/api/user/logout`);
       setIsLoggedIn(false);
       navigate("/");
     } catch (error) {

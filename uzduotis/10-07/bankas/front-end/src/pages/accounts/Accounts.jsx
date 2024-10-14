@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../utils/config";
+import axios from "axios";
 
 const Accounts = () => {
   const [data, setData] = useState([]);
