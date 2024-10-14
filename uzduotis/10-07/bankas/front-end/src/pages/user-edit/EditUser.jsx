@@ -4,8 +4,8 @@ import { BASE_URL } from "../../utils/config";
 import axios from "axios";
 
 const UserEdit = () => {
-  const { id } = useParams(); // Get the user ID from the URL
-  const { state } = useLocation(); // Get user data if passed for editing
+  const { id } = useParams();
+  const { state } = useLocation();
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     name: "",
@@ -13,9 +13,8 @@ const UserEdit = () => {
     password: "",
   });
   const [message, setMessage] = useState(null);
-  const isEditMode = id !== "new"; // Determine if it's edit mode or create mode
+  const isEditMode = id !== "new";
 
-  // Set initial form values if editing a user
   useEffect(() => {
     if (isEditMode && state?.user) {
       setUserData({
@@ -32,27 +31,25 @@ const UserEdit = () => {
     const data = {
       name: userData.name,
       email: userData.email,
-      ...(userData.password && { password: userData.password }), // Only include password if not empty
+      ...(userData.password && { password: userData.password }),
     };
 
     if (isEditMode) {
-      // Edit user (PATCH request)
       axios
         .patch(`${BASE_URL}/api/user/${id}`, data)
         .then((resp) => {
           setMessage({ data: "User updated successfully", status: "success" });
-          setTimeout(() => navigate("/users"), 2000); // Navigate back after success
+          setTimeout(() => navigate("/users"), 2000);
         })
         .catch(() =>
           setMessage({ data: "Failed to update user", status: "danger" })
         );
     } else {
-      // Create new user (POST request)
       axios
         .post(`${BASE_URL}/api/user/create`, data)
         .then((resp) => {
           setMessage({ data: "User created successfully", status: "success" });
-          setTimeout(() => navigate("/users"), 2000); // Navigate back after success
+          setTimeout(() => navigate("/users"), 2000);
         })
         .catch(() =>
           setMessage({ data: "Failed to create user", status: "danger" })

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Card from "../../components/card/Card";
+import { BASE_URL } from "../../utils/config";
 
 const MoneyAddRemove = ({ action }) => {
   const [account, setAccount] = useState({
@@ -18,9 +19,7 @@ const MoneyAddRemove = ({ action }) => {
 
   const fetchAccountDetails = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/account/${id}`
-      );
+      const response = await axios.get(`${BASE_URL}/api/account/${id}`);
       const accountData = response.data;
 
       setAccount({
@@ -65,12 +64,9 @@ const MoneyAddRemove = ({ action }) => {
     }
 
     try {
-      const response = await axios.put(
-        `http://localhost:3000/api/account/${id}`,
-        {
-          money: updatedBalance,
-        }
-      );
+      const response = await axios.put(`${BASE_URL}/api/account/${id}`, {
+        money: updatedBalance,
+      });
 
       setMessage({
         data: response.data.message || "Operation successful.",
@@ -98,84 +94,87 @@ const MoneyAddRemove = ({ action }) => {
   };
 
   return (
-    <div className="container d-flex gap-5 justify-content-center align-items-center">
-      <Card
-        name={account.name}
-        surname={account.surname}
-        accountNumber={account.iban}
-      />
-      <div className="balance" style={{ height: 300 }}>
-        <h1>Your balance: {account.balance} EUR</h1>
+    <div className="container mt-5">
+      <div className="row d-flex justify-content-center align-items-center">
+        <div className="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <Card
+            name={account.name}
+            surname={account.surname}
+            accountNumber={account.iban}
+          />
+        </div>
+        <div className="col-lg-5 col-md-6 col-sm-12">
+          <div className="balance" style={{ height: 300 }}>
+            <h1>Your balance: {account.balance} EUR</h1>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="amount" className="form-label">
-              {action === "add" ? "Add Money:" : "Remove Money:"}
-            </label>
-            <div className="d-flex gap-2">
-              <input
-                style={{ width: "60%" }}
-                type="number"
-                id="amount"
-                className="form-control"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                placeholder={`Enter amount to ${action}`}
-                min="0"
-                required
-              />
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label htmlFor="amount" className="form-label">
+                  {action === "add" ? "Add Money:" : "Remove Money:"}
+                </label>
+                <div className="d-flex gap-2">
+                  <input
+                    type="number"
+                    id="amount"
+                    className="form-control"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    placeholder={`Enter amount to ${action}`}
+                    min="0"
+                    style={{ flex: "1" }}
+                    required
+                  />
 
-              {action === "remove" && (
-                <button
-                  type="button"
-                  className="btn btn-org"
-                  onClick={handleSetAllAmount}
-                >
-                  All
-                </button>
+                  {action === "remove" && (
+                    <button
+                      type="button"
+                      className="btn btn-warning"
+                      onClick={handleSetAllAmount}
+                    >
+                      All
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {action === "add" && (
+                <div className="d-flex gap-2 mb-3">
+                  <button
+                    type="button"
+                    className="btn btn-outline-org"
+                    onClick={() => handleSetAmount(50)}
+                  >
+                    50 EUR
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-outline-org"
+                    onClick={() => handleSetAmount(100)}
+                  >
+                    100 EUR
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-outline-org"
+                    onClick={() => handleSetAmount(500)}
+                  >
+                    500 EUR
+                  </button>
+                </div>
               )}
-            </div>
+
+              <button type="submit" className="btn btn-org w-80">
+                {action === "add" ? "Add Money" : "Take out money"}
+              </button>
+            </form>
+
+            {message && (
+              <div className={`alert alert-${message.status} mt-4`}>
+                {message.data}
+              </div>
+            )}
           </div>
-
-          {action === "add" && (
-            <div className="d-flex gap-2 mb-3">
-              <button
-                type="button"
-                className="btn btn-outline-org"
-                onClick={() => handleSetAmount(50)}
-              >
-                50 EUR
-              </button>
-              <button
-                type="button"
-                className="btn btn-outline-org"
-                onClick={() => handleSetAmount(100)}
-              >
-                100 EUR
-              </button>
-              <button
-                type="button"
-                className="btn btn-outline-org"
-                onClick={() => handleSetAmount(500)}
-              >
-                500 EUR
-              </button>
-            </div>
-          )}
-
-          <button type="submit" className="btn btn-org">
-            {action === "add" ? "Add Money" : "Take out money"}
-          </button>
-        </form>
-
-        {message && (
-          <div
-            style={{ width: "100%" }}
-            className={`alert alert-${message.status} mt-5`}
-          >
-            {message.data}
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

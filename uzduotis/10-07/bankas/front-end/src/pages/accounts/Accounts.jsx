@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../utils/config";
 
 const Accounts = () => {
   const [data, setData] = useState([]);
@@ -9,7 +10,7 @@ const Accounts = () => {
 
   const fetchAccounts = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/account/");
+      const response = await axios.get(`${BASE_URL}/api/account/`);
       const sortedData = response.data.sort((a, b) =>
         a.surname.toLowerCase() > b.surname.toLowerCase() ? 1 : -1
       );
@@ -33,9 +34,7 @@ const Accounts = () => {
     }
 
     try {
-      const response = await axios.delete(
-        `http://localhost:3000/api/account/${id}`
-      );
+      const response = await axios.delete(`${BASE_URL}/api/account/${id}`);
       setMessage({
         data: response.data.message,
         status: "success",
@@ -70,73 +69,75 @@ const Accounts = () => {
       )}
 
       {data.length > 0 ? (
-        <table className="table table-bordered table-hover">
-          <thead className="text-center">
-            <tr>
-              <th>Name</th>
-              <th>Surname</th>
-              <th>Account Number</th>
-              <th>Bank Code</th>
-              <th>IBAN</th>
-              <th>ID Number</th>
-              <th>ID Photo</th>
-              <th>Balance Eur</th>
-              <th>Account opened</th>
-              <th>Account updated</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((account) => (
-              <tr key={account._id}>
-                <td>{account.name}</td>
-                <td>{account.surname}</td>
-                <td>{account.accountNumber}</td>
-                <td>{account.bankCode}</td>
-                <td>{account.iban}</td>
-                <td>{account.idNumber}</td>
-                <td>
-                  <img
-                    src={`http://localhost:3000/photos/${account.idPhoto}`}
-                    alt="ID Photo"
-                    style={{ width: "100px" }}
-                  />
-                </td>
-                <td>{account.money} EUR</td>
-                <td>{new Date(account.createdAt).toLocaleString()}</td>
-                <td>{new Date(account.updatedAt).toLocaleString()}</td>
-                <td>
-                  <button
-                    className="btn"
-                    style={{ cursor: "pointer" }}
-                    onClick={() =>
-                      handleRemoveAccount(account._id, account.money)
-                    }
-                    title="Remove account"
-                  >
-                    <i class="bi bi-trash"></i>
-                  </button>
-                  <button
-                    className="btn"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleAddMoney(account._id)}
-                    title="Add money"
-                  >
-                    <i class="bi bi-plus-circle"></i>
-                  </button>
-                  <button
-                    className="btn"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleRemoveMoney(account._id)}
-                    title="Remove money"
-                  >
-                    <i class="bi bi-dash-circle"></i>
-                  </button>
-                </td>
+        <div className="table-responsive">
+          <table className="table table-bordered table-hover">
+            <thead className="text-center">
+              <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Account Number</th>
+                <th>Bank Code</th>
+                <th>IBAN</th>
+                <th>ID Number</th>
+                <th>ID Photo</th>
+                <th>Balance Eur</th>
+                <th>Account opened</th>
+                <th>Account updated</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data.map((account) => (
+                <tr key={account._id}>
+                  <td>{account.name}</td>
+                  <td>{account.surname}</td>
+                  <td>{account.accountNumber}</td>
+                  <td>{account.bankCode}</td>
+                  <td>{account.iban}</td>
+                  <td>{account.idNumber}</td>
+                  <td>
+                    <img
+                      src={`${BASE_URL}/photos/${account.idPhoto}`}
+                      alt="ID Photo"
+                      style={{ width: "100px" }}
+                    />
+                  </td>
+                  <td>{account.money} EUR</td>
+                  <td>{new Date(account.createdAt).toLocaleString()}</td>
+                  <td>{new Date(account.updatedAt).toLocaleString()}</td>
+                  <td>
+                    <button
+                      className="btn"
+                      style={{ cursor: "pointer" }}
+                      onClick={() =>
+                        handleRemoveAccount(account._id, account.money)
+                      }
+                      title="Remove account"
+                    >
+                      <i className="bi bi-trash"></i>
+                    </button>
+                    <button
+                      className="btn"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleAddMoney(account._id)}
+                      title="Add money"
+                    >
+                      <i className="bi bi-plus-circle"></i>
+                    </button>
+                    <button
+                      className="btn"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleRemoveMoney(account._id)}
+                      title="Remove money"
+                    >
+                      <i className="bi bi-dash-circle"></i>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <p>{message ? message.data : "No accounts available"}</p>
       )}

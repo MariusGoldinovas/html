@@ -50,3 +50,31 @@ tr {
   border: 1px solid black;
   background-color: var(--primary) !important;
 }
+
+@media (max-width: 576px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+  }
+  .container {
+    text-align: center;
+  }
+
+  .table thead th {
+    text-align: center;
+  }
+
+  .table {
+    display: table;
+  }
+
+  .table-responsive {
+    overflow-x: scroll;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px;
+    white-space: nowrap;
+  }
+}

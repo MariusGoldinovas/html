@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../utils/config";
 
 const Login = ({ onLogin }) => {
-  // onLogin will be passed from the parent component
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -46,34 +45,38 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div className="container mt-5 text-center" style={{ width: 500 }}>
-      <h1 className="mb-5"></h1>
-      <form onSubmit={handleLogin}>
-        <div className="mb-3">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="form-control"
-          />
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-lg-4 col-md-6 col-sm-8">
+          <h1 className="mb-5 text-center">Login</h1>
+          <form onSubmit={handleLogin}>
+            <div className="mb-3">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="form-control"
+              />
+            </div>
+            <div className="mb-3">
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="form-control"
+              />
+            </div>
+            <button type="submit" className="btn btn-org w-100">
+              Login
+            </button>
+          </form>
+          {error && <p className="mt-3 text-danger text-center">{error}</p>}
         </div>
-        <div className="mb-3">
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="form-control"
-          />
-        </div>
-        <button type="submit" className="btn btn-org">
-          Login
-        </button>
-      </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      </div>
     </div>
   );
 };

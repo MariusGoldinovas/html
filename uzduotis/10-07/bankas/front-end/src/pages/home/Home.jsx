@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className="container">
       <div className="main d-flex justify-content-center mt-5">
-        <img src={card} alt="" />
+        <img src={card} alt="Card" />
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   };
 
   return (
-    <div className="m-4 d-flex justify-content-between align-items-center">
+    <div className="header m-4 d-flex justify-content-between align-items-center">
       <Link to="/">
         <img src={logo} style={{ height: 75 }} alt="Logo" />
       </Link>

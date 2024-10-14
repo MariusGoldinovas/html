@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { generate, validate } from "../../utils/id.js";
+import { BASE_URL } from "../../utils/config.js";
 
 const CreateAccount = () => {
   const [message, setMessage] = useState();
@@ -13,7 +14,7 @@ const CreateAccount = () => {
 
     const data = new FormData(e.target);
     axios
-      .post("http://localhost:3000/api/account/create", data)
+      .post(`${BASE_URL}/api/account/create`, data)
       .then((resp) => {
         setMessage({
           data: resp.data.message,
@@ -82,8 +83,8 @@ const CreateAccount = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="idNumber">Enter national ID number</label>
-          <div className="row">
-            <div className="col-md-6">
+          <div className="row gap-5">
+            <div className="col-md-4">
               <input
                 name="idNumber"
                 type="number"
@@ -93,10 +94,10 @@ const CreateAccount = () => {
                 className="form-control"
               />
             </div>
-            <div className="col-md-2">
+            <div className="col-md-3">
               <button
                 type="button"
-                className="btn btn-org w-80"
+                className="btn btn-org w-100"
                 onClick={handleGenerate}
               >
                 Generate ID
@@ -105,7 +106,7 @@ const CreateAccount = () => {
             <div className="col-md-3">
               <button
                 type="button"
-                className="btn btn-org w-80"
+                className="btn btn-org w-100"
                 onClick={handleValidate}
               >
                 Validate ID
@@ -124,9 +125,7 @@ const CreateAccount = () => {
             className="form-control"
           />
         </div>
-        <button style={{ width: 200 }} className="btn btn-org ">
-          Submit
-        </button>
+        <button className="btn btn-org ">Submit</button>
       </form>
     </div>
   );

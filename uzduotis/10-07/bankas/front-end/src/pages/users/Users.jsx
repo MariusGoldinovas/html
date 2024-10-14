@@ -18,11 +18,25 @@ const Users = () => {
   }, []);
 
   const handleRemove = (id) => {
+    if (users.length === 1) {
+      setMessage({
+        data: "Cannot delete the last user.",
+        status: "warning",
+      });
+      return;
+    }
+
     axios
       .delete(`${BASE_URL}/api/user/${id}`)
       .then((response) => {
-        setMessage({ data: response.data.message, status: "success" });
-        setUsers(users.filter((user) => user._id !== id));
+        const updatedUsers = users.filter((user) => user._id !== id);
+        setUsers(updatedUsers);
+
+        if (updatedUsers.length === 0) {
+          setMessage({ data: "No more users available.", status: "warning" });
+        } else {
+          setMessage({ data: response.data.message, status: "success" });
+        }
       })
       .catch(() =>
         setMessage({ data: "Failed to delete user", status: "danger" })
@@ -31,7 +45,7 @@ const Users = () => {
 
   return (
     <div className="container mt-4 w-50">
-      <div className="top d-flex justify-content-between">
+      <div className="container d-flex justify-content-between">
         <h1>Users List</h1>
         <button onClick={() => navigate("/users/new")} className="btn">
           Add User
@@ -42,43 +56,45 @@ const Users = () => {
       )}
 
       {users.length > 0 ? (
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Created </th>
-              <th>Updated </th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user._id}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-                <td>{new Date(user.updatedAt).toLocaleDateString()}</td>
-                <td>
-                  <button
-                    onClick={() =>
-                      navigate(`/users/${user._id}`, { state: { user } })
-                    }
-                    className="btn btn-link text-primary me-3"
-                  >
-                    <i className="bi bi-pencil-square"></i>
-                  </button>
-                  <button
-                    onClick={() => handleRemove(user._id)}
-                    className="btn btn-link text-danger"
-                  >
-                    <i className="bi bi-trash"></i>
-                  </button>
-                </td>
+        <div className="table-responsive">
+          <table className="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user._id}>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                  <td>{new Date(user.updatedAt).toLocaleDateString()}</td>
+                  <td>
+                    <button
+                      onClick={() =>
+                        navigate(`/users/${user._id}`, { state: { user } })
+                      }
+                      className="btn btn-link text-primary me-3"
+                    >
+                      <i className="bi bi-pencil-square"></i>
+                    </button>
+                    <button
+                      onClick={() => handleRemove(user._id)}
+                      className="btn btn-link text-danger"
+                    >
+                      <i className="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <p>No users available</p>
       )}
